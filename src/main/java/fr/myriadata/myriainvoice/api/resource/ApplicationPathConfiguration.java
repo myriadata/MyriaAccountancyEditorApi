@@ -1,4 +1,4 @@
-package fr.myriadata.myriainvoice.api.resources;
+package fr.myriadata.myriainvoice.api.resource;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
