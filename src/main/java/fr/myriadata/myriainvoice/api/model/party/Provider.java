@@ -1,5 +1,6 @@
-package fr.myriadata.myriainvoice.api.model;
+package fr.myriadata.myriainvoice.api.model.party;
 
+import fr.myriadata.myriainvoice.api.model.common.Address;
 import lombok.Getter;
 import lombok.Setter;
 

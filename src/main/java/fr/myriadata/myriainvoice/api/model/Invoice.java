@@ -1,5 +1,9 @@
 package fr.myriadata.myriainvoice.api.model;
 
+import fr.myriadata.myriainvoice.api.model.common.Contact;
+import fr.myriadata.myriainvoice.api.model.order.Order;
+import fr.myriadata.myriainvoice.api.model.party.Provider;
+import fr.myriadata.myriainvoice.api.model.tax.ConsolidatedTaxes;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,24 +15,18 @@ import java.util.List;
 @Setter
 public class Invoice {
 
+    private String number;
+    private LocalDate date;
     private Provider provider;
     private Contact sender;
     private Contact recipient;
-    private Address invoicingAddress;
 
-    private String number;
-    private String orderNumber;
-    private String description;
-    private LocalDate invoiceDate;
-    private LocalDate supplyDate;
+    private Order order;
+    private ConsolidatedTaxes consolidatedTaxes;
+    private List<String> variousParticulars;
 
     private LocalDate paymentDeadline;
     private BigDecimal latePenaltyRate;
     private BigDecimal recoveryFlatRate;
-
-    private List<InvoiceLine> lines;
-    private List<AdditionalExpense> additionalExpenses;
-
-    private List<String> variousParticulars;
 
 }

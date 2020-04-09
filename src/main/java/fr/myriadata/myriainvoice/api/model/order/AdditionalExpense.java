@@ -1,4 +1,4 @@
-package fr.myriadata.myriainvoice.api.model;
+package fr.myriadata.myriainvoice.api.model.order;
 
 import lombok.Getter;
 import lombok.Setter;
