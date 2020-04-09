@@ -43,7 +43,12 @@ public class InvoiceHeader extends Div {
         Table table = new Table(new UnitValue[]{new UnitValue(UnitValue.PERCENT, 50), new UnitValue(UnitValue.PERCENT, 50)});
         table.setWidth(new UnitValue(UnitValue.PERCENT, 100));
         table.addCell(new Cell().setBorder(Border.NO_BORDER).add(new ContactParagraph(invoice.getSender())));
-        table.addCell(new Cell().setBorder(Border.NO_BORDER).add(new ContactParagraph(invoice.getRecipient())));
+        Cell recipientCell = new Cell().setBorder(Border.NO_BORDER)
+                .add(new Paragraph("\n"))
+                .add(new Paragraph(new BoldText("A l'attention de : ")))
+                .add(new Paragraph("\n"))
+                .add(new ContactParagraph(invoice.getRecipient()));
+        table.addCell(recipientCell);
         return table;
     }
 
