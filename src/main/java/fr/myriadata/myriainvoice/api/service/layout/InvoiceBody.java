@@ -16,7 +16,7 @@ public class InvoiceBody extends Div {
         add(new Paragraph(""));
 
         add(new TaxDiv(invoice.getConsolidatedTaxes()));
-        add(new Paragraph("\n\n"));
+        add(new Paragraph("\n"));
 
         add(new MultiLineParagraph(invoice.getVariousParticulars()));
     }
