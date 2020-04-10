@@ -1,4 +1,4 @@
-package fr.myriadata.myriainvoice.api.service.layout.text;
+package fr.myriadata.myriainvoice.api.service.layout.paragraph;
 
 import com.itextpdf.layout.element.Paragraph;
 

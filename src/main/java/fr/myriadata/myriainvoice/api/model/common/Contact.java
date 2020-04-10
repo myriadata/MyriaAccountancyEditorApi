@@ -8,6 +8,7 @@ import lombok.Setter;
 public class Contact {
 
     private Address address;
+    private String name;
     private String email;
     private String landlinePhoneNumber;
     private String mobilePhoneNumber;

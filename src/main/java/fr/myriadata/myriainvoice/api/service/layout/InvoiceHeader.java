@@ -6,8 +6,9 @@ import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import fr.myriadata.myriainvoice.api.model.Invoice;
+import fr.myriadata.myriainvoice.api.service.layout.paragraph.AddressParagraph;
 import fr.myriadata.myriainvoice.api.service.layout.text.BoldText;
-import fr.myriadata.myriainvoice.api.service.layout.text.ContactParagraph;
+import fr.myriadata.myriainvoice.api.service.layout.paragraph.ContactParagraph;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
@@ -42,13 +43,15 @@ public class InvoiceHeader extends Div {
     private Table senderAndRecipeint(Invoice invoice) throws IOException {
         Table table = new Table(new UnitValue[]{new UnitValue(UnitValue.PERCENT, 50), new UnitValue(UnitValue.PERCENT, 50)});
         table.setWidth(new UnitValue(UnitValue.PERCENT, 100));
-        table.addCell(new Cell().setBorder(Border.NO_BORDER).add(new ContactParagraph(invoice.getSender())));
-        Cell recipientCell = new Cell().setBorder(Border.NO_BORDER)
+        table.addCell(new Cell().setBorder(Border.NO_BORDER)
+                .add(new AddressParagraph(invoice.getSender().getAddress()))
                 .add(new Paragraph("\n"))
-                .add(new Paragraph(new BoldText("A l'attention de : ")))
+                .add(new ContactParagraph(invoice.getSender())));
+        table.addCell(new Cell().setBorder(Border.NO_BORDER)
                 .add(new Paragraph("\n"))
-                .add(new ContactParagraph(invoice.getRecipient()));
-        table.addCell(recipientCell);
+                .add(new Paragraph(new Text("A l'attention de " + invoice.getRecipient().getName())))
+                .add(new Paragraph("\n"))
+                .add(new AddressParagraph(invoice.getRecipient().getAddress())));
         return table;
     }
 
