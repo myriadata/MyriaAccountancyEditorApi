@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PaymentInstructionsDiv extends Div {
-    private Map<PaymentMethod, Class> mapPaymentMethodToDiv = Map.of(
+    private Map<PaymentMethod, Class<? extends Div>> mapPaymentMethodToDiv = Map.of(
         PaymentMethod.CHEQUE,   ChequePaymentInstructionsDiv.class,
         PaymentMethod.TRANSFER, TransferPaymentInstructionsDiv.class
     );
@@ -46,7 +46,7 @@ public class PaymentInstructionsDiv extends Div {
         for (PaymentMethod method : paymentInstructions.getPaymentMethods()) {
             if (!methodWithoutDiv.contains(method)) {
                 try {
-                    contents.add((Div) mapPaymentMethodToDiv.get(method).getConstructor(PaymentInstructions.class).newInstance(paymentInstructions));
+                    contents.add(mapPaymentMethodToDiv.get(method).getConstructor(PaymentInstructions.class).newInstance(paymentInstructions));
                 } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     throw new IllegalStateException("Error while creating specialized payment instruction div from declared method payment", e);
                 }
