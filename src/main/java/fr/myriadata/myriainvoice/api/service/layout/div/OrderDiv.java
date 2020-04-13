@@ -20,10 +20,9 @@ public class OrderDiv extends Div {
 
 
     public OrderDiv(Order order) throws IOException {
-        add(new Paragraph(new ObliqueText(String.format("Numéro de commande : %s\n", order.getNumber()))));
-        add(new Paragraph(""));
+        add(new Paragraph(new ObliqueText(String.format("Numéro de commande : %s", order.getNumber()))));
 
-        add(new Paragraph(new Text(String.format("%s\n", order.getDescription()))));
+        add(new Paragraph(order.getDescription()));
         add(lines(order.getLines()));
         add(additionalExpenses(order.getAdditionalExpenses()));
     }

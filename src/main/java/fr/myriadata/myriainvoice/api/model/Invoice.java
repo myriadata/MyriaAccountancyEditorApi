@@ -3,6 +3,7 @@ package fr.myriadata.myriainvoice.api.model;
 import fr.myriadata.myriainvoice.api.model.common.Contact;
 import fr.myriadata.myriainvoice.api.model.order.Order;
 import fr.myriadata.myriainvoice.api.model.party.Provider;
+import fr.myriadata.myriainvoice.api.model.payment.PaymentInstructions;
 import fr.myriadata.myriainvoice.api.model.tax.ConsolidatedTaxes;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,9 +25,6 @@ public class Invoice {
     private Order order;
     private ConsolidatedTaxes consolidatedTaxes;
     private List<String> variousParticulars;
-
-    private LocalDate paymentDeadline;
-    private BigDecimal latePenaltyRate;
-    private BigDecimal recoveryFlatRate;
+    private PaymentInstructions paymentInstructions;
 
 }

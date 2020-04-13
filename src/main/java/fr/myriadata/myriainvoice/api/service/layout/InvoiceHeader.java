@@ -1,17 +1,17 @@
 package fr.myriadata.myriainvoice.api.service.layout;
 
 import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.TextAlignment;
-import com.itextpdf.layout.property.UnitValue;
 import fr.myriadata.myriainvoice.api.model.Invoice;
 import fr.myriadata.myriainvoice.api.service.layout.paragraph.AddressParagraph;
-import fr.myriadata.myriainvoice.api.service.layout.text.BoldText;
 import fr.myriadata.myriainvoice.api.service.layout.paragraph.ContactParagraph;
+import fr.myriadata.myriainvoice.api.service.layout.table.CustomPageTable;
+import fr.myriadata.myriainvoice.api.service.layout.text.BoldText;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class InvoiceHeader extends Div {
 
@@ -20,7 +20,7 @@ public class InvoiceHeader extends Div {
         add(new Paragraph(""));
 
         add(senderAndRecipeint(invoice));
-        add(new Paragraph("\n"));
+        add(new Paragraph(""));
     }
 
     private Table invoiceId(Invoice invoice) throws IOException {
@@ -33,26 +33,23 @@ public class InvoiceHeader extends Div {
                 .add(new BoldText(String.format("Facture  %s\n", invoice.getNumber())).setFontSize(12f))
                 .add(new Text(String.format("Date de facturation : %s\n" , invoice.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))));
 
-        Table table = new Table(new UnitValue[]{new UnitValue(UnitValue.PERCENT, 50), new UnitValue(UnitValue.PERCENT, 50)});
-        table.setWidth(new UnitValue(UnitValue.PERCENT, 100));
-        table.addCell(new Cell().setBorder(Border.NO_BORDER).add(logo));
-        table.addCell(new Cell().setBorder(Border.NO_BORDER).add(id));
-        return table;
+        return new CustomPageTable(2, Arrays.asList(
+           new Div().add(logo),
+           new Div().add(id)
+        ));
     }
 
     private Table senderAndRecipeint(Invoice invoice) throws IOException {
-        Table table = new Table(new UnitValue[]{new UnitValue(UnitValue.PERCENT, 50), new UnitValue(UnitValue.PERCENT, 50)});
-        table.setWidth(new UnitValue(UnitValue.PERCENT, 100));
-        table.addCell(new Cell().setBorder(Border.NO_BORDER)
-                .add(new AddressParagraph(invoice.getSender().getAddress()))
-                .add(new Paragraph("\n"))
-                .add(new ContactParagraph(invoice.getSender())));
-        table.addCell(new Cell().setBorder(Border.NO_BORDER)
-                .add(new Paragraph("\n"))
+        return new CustomPageTable(2, Arrays.asList(
+           new Div()
+               .add(new AddressParagraph(invoice.getSender().getAddress()))
+               .add(new Paragraph(""))
+               .add(new ContactParagraph(invoice.getSender())),
+            new Div()
+                .add(new Paragraph(""))
                 .add(new Paragraph(new Text("A l'attention de " + invoice.getRecipient().getName())))
-                .add(new Paragraph("\n"))
-                .add(new AddressParagraph(invoice.getRecipient().getAddress())));
-        return table;
+                .add(new AddressParagraph(invoice.getRecipient().getAddress()))
+        ));
     }
 
 }
