@@ -9,9 +9,9 @@ import com.itextpdf.layout.property.UnitValue;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class CustomPageTable extends Table {
+public class FlexboxTable extends Table {
 
-    public CustomPageTable(int numColumns, List<IBlockElement> contents) {
+    public FlexboxTable(int numColumns, List<IBlockElement> contents) {
         super(numColumns);
 
         if (contents.size() != numColumns) {

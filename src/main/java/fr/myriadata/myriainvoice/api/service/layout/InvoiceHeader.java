@@ -6,7 +6,7 @@ import com.itextpdf.layout.property.TextAlignment;
 import fr.myriadata.myriainvoice.api.model.Invoice;
 import fr.myriadata.myriainvoice.api.service.layout.paragraph.AddressParagraph;
 import fr.myriadata.myriainvoice.api.service.layout.paragraph.ContactParagraph;
-import fr.myriadata.myriainvoice.api.service.layout.table.CustomPageTable;
+import fr.myriadata.myriainvoice.api.service.layout.table.FlexboxTable;
 import fr.myriadata.myriainvoice.api.service.layout.text.BoldText;
 
 import java.io.IOException;
@@ -33,14 +33,14 @@ public class InvoiceHeader extends Div {
                 .add(new BoldText(String.format("Facture  %s\n", invoice.getNumber())).setFontSize(12f))
                 .add(new Text(String.format("Date de facturation : %s\n" , invoice.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))));
 
-        return new CustomPageTable(2, Arrays.asList(
+        return new FlexboxTable(2, Arrays.asList(
            new Div().add(logo),
            new Div().add(id)
         ));
     }
 
     private Table senderAndRecipeint(Invoice invoice) throws IOException {
-        return new CustomPageTable(2, Arrays.asList(
+        return new FlexboxTable(2, Arrays.asList(
            new Div()
                .add(new AddressParagraph(invoice.getSender().getAddress()))
                .add(new Paragraph(""))

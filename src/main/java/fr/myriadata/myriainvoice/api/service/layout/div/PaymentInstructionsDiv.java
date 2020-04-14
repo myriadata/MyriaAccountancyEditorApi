@@ -6,7 +6,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.TextAlignment;
 import fr.myriadata.myriainvoice.api.model.payment.PaymentInstructions;
 import fr.myriadata.myriainvoice.api.model.payment.PaymentMethod;
-import fr.myriadata.myriainvoice.api.service.layout.table.CustomPageTable;
+import fr.myriadata.myriainvoice.api.service.layout.table.FlexboxTable;
 import fr.myriadata.myriainvoice.api.service.layout.text.BoldText;
 
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class PaymentInstructionsDiv extends Div {
         int numColumns = numColumns(paymentInstructions);
         List<IBlockElement> contents = contents(paymentInstructions);
 
-        add(new CustomPageTable(numColumns, contents));
+        add(new FlexboxTable(numColumns, contents));
         add(delayDiv());
     }
 

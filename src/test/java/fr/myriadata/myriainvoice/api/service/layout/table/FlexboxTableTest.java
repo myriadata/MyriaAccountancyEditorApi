@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 
-public class CustomPageTableTest {
+public class FlexboxTableTest {
 
     @Test
     public void shouldThrowExceptionWhenZeroColumnforZeroContent() {
         Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new CustomPageTable(0, null);
+            new FlexboxTable(0, null);
         });
 
         Assertions.assertEquals("The number of columns in Table constructor must be greater than zero", exception.getMessage());
@@ -21,7 +21,7 @@ public class CustomPageTableTest {
     @Test
     public void shouldThrowExceptionWhenTwoColumnsforFourContents() {
         Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new CustomPageTable(2, Arrays.asList(new Div[4]));
+            new FlexboxTable(2, Arrays.asList(new Div[4]));
         });
 
         Assertions.assertEquals("The number of columns in Table (2) constructor " +

@@ -1,5 +1,7 @@
 package fr.myriadata.myriainvoice.api.service.layout.table;
 
+import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.TextAlignment;
@@ -11,5 +13,11 @@ public class HeaderCell extends Cell {
     public HeaderCell(String label) throws IOException {
         setTextAlignment(TextAlignment.CENTER);
         add(new Paragraph(new BoldText(label)));
+
+        setBorder(new SolidBorder(.1f));
+
+        Border border = new SolidBorder(1);
+        setBorderTop(border);
+        setBorderBottom(border);
     }
 }
