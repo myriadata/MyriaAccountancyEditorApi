@@ -10,6 +10,7 @@ import java.util.List;
 public class Order {
 
     private String number;
+    private String customerReference;
     private String description;
     private List<InvoiceLine> lines;
     private List<AdditionalExpense> additionalExpenses;

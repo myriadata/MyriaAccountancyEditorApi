@@ -22,7 +22,9 @@ public class OrderDiv extends Div {
 
 
     public OrderDiv(Order order) throws IOException {
-        add(new Paragraph(new ObliqueText(String.format("Numéro de commande : %s", order.getNumber()))));
+        add(new Paragraph().setMultipliedLeading(1)
+            .add(new ObliqueText(String.format("Numéro de commande : %s\n", order.getNumber())))
+            .add(new ObliqueText(String.format("Référence cliente : %s", order.getCustomerReference()))));
 
         add(new Paragraph(order.getDescription()));
         add(expenses(order));
