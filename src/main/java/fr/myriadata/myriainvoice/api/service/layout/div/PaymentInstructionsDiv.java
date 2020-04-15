@@ -1,6 +1,10 @@
 package fr.myriadata.myriainvoice.api.service.layout.div;
 
-import com.itextpdf.layout.element.*;
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.element.IBlockElement;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import fr.myriadata.myriainvoice.api.model.payment.PaymentInstructions;
@@ -40,14 +44,19 @@ public class PaymentInstructionsDiv extends Div {
             .setFontSize(8f));
 
         Table paymentTable = new BorderedTable(new UnitValue[] {
-                new UnitValue(UnitValue.createPercentValue(65f)),
-                new UnitValue(UnitValue.createPercentValue(35f))
-        }).setWidth(new UnitValue(UnitValue.PERCENT, 100f));
+                new UnitValue(UnitValue.createPercentValue(60f)),
+                new UnitValue(UnitValue.createPercentValue(40f))
+        }).setWidth(new UnitValue(UnitValue.PERCENT, 100f))
+          .setBackgroundColor(ColorConstants.LIGHT_GRAY, .6f);
         paymentTable.addCell(new BorderedCell().add(new Paragraph(new BoldText("Net à payer"))));
-        paymentTable.addCell(new BorderedCell().add(new AmountCell(paymentInstructions.getAmount())));
+        paymentTable.addCell(new AmountCell(paymentInstructions.getAmount())
+                .setTextAlignment(TextAlignment.CENTER)
+                .setPadding(2f));
         paymentTable.addCell(new BorderedCell().add(new Paragraph(new BoldText("Date d'échéance"))));
         paymentTable.addCell(new BorderedCell().add(new Paragraph(paymentInstructions.getPaymentDeadline()
-                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))).setTextAlignment(TextAlignment.RIGHT));
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))))
+                .setTextAlignment(TextAlignment.CENTER)
+                .setPadding(2f));
         contents.addCell(new UnborderedCell().add(paymentTable));
 
         return contents;

@@ -16,6 +16,7 @@ public class Invoice {
 
     private String number;
     private LocalDate date;
+
     private Provider provider;
     private Contact sender;
     private Contact recipient;

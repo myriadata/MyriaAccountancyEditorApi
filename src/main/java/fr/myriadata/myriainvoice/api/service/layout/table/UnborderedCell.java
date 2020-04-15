@@ -6,7 +6,7 @@ import com.itextpdf.layout.element.Cell;
 public class UnborderedCell extends Cell {
 
     public UnborderedCell() {
-        super();
+        setPaddingRight(5f);
         setBorder(Border.NO_BORDER);
     }
 }

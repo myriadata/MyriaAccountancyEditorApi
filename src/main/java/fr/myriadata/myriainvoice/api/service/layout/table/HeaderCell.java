@@ -12,12 +12,11 @@ import java.io.IOException;
 public class HeaderCell extends Cell {
     public HeaderCell(String label) throws IOException {
         setTextAlignment(TextAlignment.CENTER);
-        add(new Paragraph(new BoldText(label)));
-
+        setPaddingRight(5f);
         setBorder(new SolidBorder(.1f));
+        setBorderTop(new SolidBorder(1));
+        setBorderBottom(new SolidBorder(1));
 
-        Border border = new SolidBorder(1);
-        setBorderTop(border);
-        setBorderBottom(border);
+        add(new Paragraph(new BoldText(label)));
     }
 }

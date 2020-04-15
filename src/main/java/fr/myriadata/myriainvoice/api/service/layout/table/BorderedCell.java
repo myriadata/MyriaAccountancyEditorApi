@@ -7,6 +7,8 @@ import com.itextpdf.layout.element.Cell;
 public class BorderedCell extends Cell {
 
     public BorderedCell() {
+        setPaddingRight(5f);
+
         setBorder(new SolidBorder(.1f));
     }
 

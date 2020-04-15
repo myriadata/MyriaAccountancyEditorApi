@@ -10,6 +10,8 @@ public class AmountCell extends BorderedCell {
 
     public AmountCell(BigDecimal amount) {
         setTextAlignment(TextAlignment.RIGHT);
+        setPaddingRight(5f);
+
         add(new NullableParagraph(
                 amount != null ? new AmountFormat().format(amount) : null));
     }
