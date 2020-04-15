@@ -15,9 +15,11 @@ import lombok.SneakyThrows;
 public class TextFooterEventHandler implements IEventHandler {
 
     private Provider provider;
+    private String currency;
 
-    public TextFooterEventHandler(Provider provider) {
+    public TextFooterEventHandler(Provider provider, String currency) {
         this.provider = provider;
+        this.currency = currency;
     }
 
     @SneakyThrows
@@ -31,7 +33,7 @@ public class TextFooterEventHandler implements IEventHandler {
 
         pageSize.setY(pdfDocument.getNumberOfPages() > 1 ? -775 : -780);
         Canvas canvas = new Canvas(pdfCanvas, pdfDocument, pageSize);
-        canvas.add(new InvoiceFooter(provider, pdfDocument, pdfPage));
+        canvas.add(new InvoiceFooter(provider, currency, pdfDocument, pdfPage));
     }
 
 }

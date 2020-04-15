@@ -24,7 +24,7 @@ public class InvoiceService {
 
         document.add(new InvoiceHeader(invoice));
         document.add(new InvoiceBody(invoice));
-        pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new TextFooterEventHandler(invoice.getProvider()));
+        pdfDocument.addEventHandler(PdfDocumentEvent.END_PAGE, new TextFooterEventHandler(invoice.getProvider(), invoice.getCurrency()));
 
         document.close();
         return byteArrayOutputStream.toByteArray();

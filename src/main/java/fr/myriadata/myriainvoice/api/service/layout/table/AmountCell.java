@@ -8,12 +8,12 @@ import java.math.BigDecimal;
 
 public class AmountCell extends BorderedCell {
 
-    public AmountCell(BigDecimal amount) {
+    public AmountCell(BigDecimal amount, String currency) {
         setTextAlignment(TextAlignment.RIGHT);
         setPaddingRight(5f);
 
         add(new NullableParagraph(
-                amount != null ? new AmountFormat().format(amount) : null));
+                amount != null ? new AmountFormat(currency).format(amount) : null));
     }
 
 }

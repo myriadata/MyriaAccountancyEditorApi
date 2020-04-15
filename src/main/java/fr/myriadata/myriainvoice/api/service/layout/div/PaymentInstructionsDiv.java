@@ -27,13 +27,13 @@ public class PaymentInstructionsDiv extends Div {
         PaymentMethod.TRANSFER, TransferPaymentInstructionsDiv.class
     );
 
-    public PaymentInstructionsDiv(PaymentInstructions paymentInstructions) throws IOException {
-        add(terms(paymentInstructions));
+    public PaymentInstructionsDiv(PaymentInstructions paymentInstructions, String currency) throws IOException {
+        add(terms(paymentInstructions, currency));
         add(methods(paymentInstructions));
         add(delayDiv());
     }
 
-    private Table terms(PaymentInstructions paymentInstructions) throws IOException {
+    private Table terms(PaymentInstructions paymentInstructions, String currency) throws IOException {
         Table contents = new Table(new UnitValue[] {
                 new UnitValue(UnitValue.createPercentValue(65f)),
                 new UnitValue(UnitValue.createPercentValue(35f))
@@ -49,7 +49,7 @@ public class PaymentInstructionsDiv extends Div {
         }).setWidth(new UnitValue(UnitValue.PERCENT, 100f))
           .setBackgroundColor(ColorConstants.LIGHT_GRAY, .6f);
         paymentTable.addCell(new BorderedCell().add(new Paragraph(new BoldText("Net à payer"))));
-        paymentTable.addCell(new AmountCell(paymentInstructions.getAmount())
+        paymentTable.addCell(new AmountCell(paymentInstructions.getAmount(), currency)
                 .setTextAlignment(TextAlignment.CENTER)
                 .setPadding(2f));
         paymentTable.addCell(new BorderedCell().add(new Paragraph(new BoldText("Date d'échéance"))));

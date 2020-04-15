@@ -12,13 +12,13 @@ import java.io.IOException;
 public class InvoiceBody extends Div {
 
     public InvoiceBody(Invoice invoice) throws IOException {
-        add(new OrderDiv(invoice.getOrder()));
+        add(new OrderDiv(invoice.getOrder(), invoice.getCurrency()));
         add(new Paragraph(""));
 
-        add(new TaxDiv(invoice.getConsolidatedTaxes()));
+        add(new TaxDiv(invoice.getConsolidatedTaxes(), invoice.getCurrency()));
         add(new Paragraph(""));
 
-        add(new PaymentInstructionsDiv(invoice.getPaymentInstructions()));
+        add(new PaymentInstructionsDiv(invoice.getPaymentInstructions(), invoice.getCurrency()));
     }
 
 }

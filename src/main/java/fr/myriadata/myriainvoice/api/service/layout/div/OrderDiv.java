@@ -20,16 +20,16 @@ import java.text.DecimalFormat;
 public class OrderDiv extends Div {
 
 
-    public OrderDiv(Order order) throws IOException {
+    public OrderDiv(Order order, String currency) throws IOException {
         add(new Paragraph().setMultipliedLeading(1)
             .add(new ObliqueText(String.format("Numéro de commande : %s\n", order.getNumber())))
             .add(new ObliqueText(String.format("Référence cliente : %s", order.getCustomerReference()))));
 
         add(new Paragraph(order.getDescription()));
-        add(expenses(order));
+        add(expenses(order, currency));
     }
 
-    private Table expenses(Order order) throws IOException {
+    private Table expenses(Order order, String currency) throws IOException {
         Table table = new BorderedTable(new UnitValue[] {
                 new UnitValue(UnitValue.createPercentValue(55f)),
                 new UnitValue(UnitValue.createPercentValue(15f)),
@@ -47,8 +47,8 @@ public class OrderDiv extends Div {
             table.addCell(new BorderedCell().add(new NullableParagraph(
                     line.getQuantity() != null ? new DecimalFormat("##0.00").format(line.getQuantity()) : null))
                     .setTextAlignment(TextAlignment.RIGHT));
-            table.addCell(new AmountCell(line.getUnitPrice()));
-            table.addCell(new AmountCell(line.getAmount()));
+            table.addCell(new AmountCell(line.getUnitPrice(), currency));
+            table.addCell(new AmountCell(line.getAmount(), currency));
         }
 
         return table;

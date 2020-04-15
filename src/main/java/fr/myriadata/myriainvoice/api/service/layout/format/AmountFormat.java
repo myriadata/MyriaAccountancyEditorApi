@@ -4,8 +4,8 @@ import java.text.DecimalFormat;
 
 public class AmountFormat extends DecimalFormat {
 
-    public AmountFormat() {
-        super("##0.00");
+    public AmountFormat(String currency) {
+        super("##0.00" + (currency != null ? " " + currency : ""));
     }
 
 }

@@ -25,12 +25,12 @@ import java.util.Map;
 
 public class TaxDiv extends Div {
 
-    public TaxDiv(ConsolidatedTaxes consolidatedTaxes) throws IOException {
-        add(tax(consolidatedTaxes.getByAmount()));
-        add(totalTax(consolidatedTaxes.getTotal()));
+    public TaxDiv(ConsolidatedTaxes consolidatedTaxes, String currency) throws IOException {
+        add(tax(consolidatedTaxes.getByAmount(), currency));
+        add(totalTax(consolidatedTaxes.getTotal(), currency));
     }
 
-    private Table tax(Map<BigDecimal, ValueAddedTax> consolidatedTaxesByAmount) throws IOException {
+    private Table tax(Map<BigDecimal, ValueAddedTax> consolidatedTaxesByAmount, String currency) throws IOException {
         Table table = new BorderedTable(new UnitValue[] {
                 new UnitValue(UnitValue.createPercentValue(16f)),
                 new UnitValue(UnitValue.createPercentValue(28f)),
@@ -47,15 +47,15 @@ public class TaxDiv extends Div {
             table.addCell(new BorderedCell().add(new Paragraph(new DecimalFormat(
                     allTaxAreInteger(consolidatedTaxesByAmount.keySet()) ? "##0" : "##0.00")
                     .format(valueAddedTaxByAmount.getKey()) + " %"))).setTextAlignment(TextAlignment.RIGHT);
-            table.addCell(new AmountCell(valueAddedTaxByAmount.getValue().getBaseAmount()));
-            table.addCell(new AmountCell(valueAddedTaxByAmount.getValue().getTaxAmount()));
-            table.addCell(new AmountCell(valueAddedTaxByAmount.getValue().getIncludingTaxAmount()));
+            table.addCell(new AmountCell(valueAddedTaxByAmount.getValue().getBaseAmount(), currency));
+            table.addCell(new AmountCell(valueAddedTaxByAmount.getValue().getTaxAmount(), currency));
+            table.addCell(new AmountCell(valueAddedTaxByAmount.getValue().getIncludingTaxAmount(), currency));
         }
 
         return table;
     }
 
-    private Table totalTax(ValueAddedTax valueAddedTax) throws IOException {
+    private Table totalTax(ValueAddedTax valueAddedTax, String currency) throws IOException {
         Table table = new BorderedTable(new UnitValue[] {
                 new UnitValue(UnitValue.createPercentValue(28f)),
                 new UnitValue(UnitValue.createPercentValue(28f)),
@@ -64,11 +64,11 @@ public class TaxDiv extends Div {
                 .setHorizontalAlignment(HorizontalAlignment.RIGHT)
                 .setBorderTop(Border.NO_BORDER);
 
-        table.addCell(new AmountCell(valueAddedTax.getBaseAmount())
+        table.addCell(new AmountCell(valueAddedTax.getBaseAmount(), currency)
                 .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
-        table.addCell(new AmountCell(valueAddedTax.getTaxAmount())
+        table.addCell(new AmountCell(valueAddedTax.getTaxAmount(), currency)
                 .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
-        table.addCell(new AmountCell(valueAddedTax.getIncludingTaxAmount())
+        table.addCell(new AmountCell(valueAddedTax.getIncludingTaxAmount(), currency)
                 .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
 
         return table;

@@ -16,14 +16,14 @@ import java.util.Optional;
 
 public class InvoiceFooter extends Paragraph {
 
-    public InvoiceFooter(Provider provider, PdfDocument pdfDocument, PdfPage pdfPage) throws IOException {
+    public InvoiceFooter(Provider provider, String currency, PdfDocument pdfDocument, PdfPage pdfPage) throws IOException {
         setMultipliedLeading(1);
         setTextAlignment(TextAlignment.CENTER);
         setFontSize(7f);
 
         addCompanyName(provider);
         addCompanyAddress(provider);
-        addVariousInformations(provider);
+        addVariousInformations(provider, currency);
         addPageNumber(pdfDocument, pdfPage);
     }
 
@@ -44,8 +44,8 @@ public class InvoiceFooter extends Paragraph {
         add("\n");
     }
 
-    private void addVariousInformations(Provider provider) {
-        add(new Text("Capital social : " + new AmountFormat().format(provider.getShareCapital())));
+    private void addVariousInformations(Provider provider, String currency) {
+        add(new Text("Capital social : " + new AmountFormat(currency).format(provider.getShareCapital())));
         for (IdentificationNumber identificationNumbers : provider.getVariousIdentificationNumbers()) {
             add(new Text(" - " + identificationNumbers.getLabel() + " : " + identificationNumbers.getId()));
         }
