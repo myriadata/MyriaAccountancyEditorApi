@@ -19,6 +19,7 @@ import fr.myriadata.myriainvoice.api.service.layout.table.HeaderCell;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Collection;
 import java.util.Map;
 
 
@@ -43,7 +44,9 @@ public class TaxDiv extends Div {
                 .addHeaderCell(new HeaderCell("Montant TTC"));
 
         for (Map.Entry<BigDecimal, ValueAddedTax> valueAddedTaxByAmount : consolidatedTaxesByAmount.entrySet()) {
-            table.addCell(new BorderedCell().add(new Paragraph(new DecimalFormat("##0.00").format(valueAddedTaxByAmount.getKey()) + " %"))).setTextAlignment(TextAlignment.RIGHT);
+            table.addCell(new BorderedCell().add(new Paragraph(new DecimalFormat(
+                    allTaxAreInteger(consolidatedTaxesByAmount.keySet()) ? "##0" : "##0.00")
+                    .format(valueAddedTaxByAmount.getKey()) + " %"))).setTextAlignment(TextAlignment.RIGHT);
             table.addCell(new AmountCell(valueAddedTaxByAmount.getValue().getBaseAmount()));
             table.addCell(new AmountCell(valueAddedTaxByAmount.getValue().getTaxAmount()));
             table.addCell(new AmountCell(valueAddedTaxByAmount.getValue().getIncludingTaxAmount()));
@@ -69,6 +72,16 @@ public class TaxDiv extends Div {
                 .setBorderTop(Border.NO_BORDER).setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
 
         return table;
+    }
+
+    private boolean allTaxAreInteger(Collection<BigDecimal> taxes) {
+        for (BigDecimal tax : taxes) {
+            if (tax.stripTrailingZeros().scale() > 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
