@@ -13,6 +13,5 @@ public class Order {
     private String customerReference;
     private String description;
     private List<InvoiceLine> lines;
-    private List<AdditionalExpense> additionalExpenses;
 
 }

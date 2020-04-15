@@ -1,15 +1,14 @@
 package fr.myriadata.myriainvoice.api.service.layout.div;
 
-import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
-import fr.myriadata.myriainvoice.api.model.order.AdditionalExpense;
 import fr.myriadata.myriainvoice.api.model.order.InvoiceLine;
 import fr.myriadata.myriainvoice.api.model.order.Order;
 import fr.myriadata.myriainvoice.api.service.layout.format.AmountFormat;
+import fr.myriadata.myriainvoice.api.service.layout.paragraph.NullableParagraph;
 import fr.myriadata.myriainvoice.api.service.layout.table.AmountCell;
 import fr.myriadata.myriainvoice.api.service.layout.table.BorderedCell;
 import fr.myriadata.myriainvoice.api.service.layout.table.BorderedTable;
@@ -17,6 +16,7 @@ import fr.myriadata.myriainvoice.api.service.layout.table.HeaderCell;
 import fr.myriadata.myriainvoice.api.service.layout.text.ObliqueText;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 public class OrderDiv extends Div {
 
@@ -44,17 +44,12 @@ public class OrderDiv extends Div {
                 .addHeaderCell(new HeaderCell("Montant H.T"));
 
         for (InvoiceLine line : order.getLines()) {
-            table.addCell(new BorderedCell().add(new Paragraph(line.getDescription())));
-            table.addCell(new BorderedCell().add(new Paragraph(new AmountFormat().format(line.getQuantity()))).setTextAlignment(TextAlignment.RIGHT));
+            table.addCell(new BorderedCell().add(new NullableParagraph(line.getDescription())));
+            table.addCell(new BorderedCell().add(new NullableParagraph(
+                    line.getQuantity() != null ? new DecimalFormat("##0.00").format(line.getQuantity()) : null))
+                    .setTextAlignment(TextAlignment.RIGHT));
             table.addCell(new AmountCell(line.getUnitPrice()));
             table.addCell(new AmountCell(line.getAmount()));
-        }
-
-        for (AdditionalExpense additionalExpense : order.getAdditionalExpenses()) {
-            table.addCell(new BorderedCell().add(new Paragraph(additionalExpense.getLabel())));
-            table.addCell(new BorderedCell());
-            table.addCell(new BorderedCell());
-            table.addCell(new AmountCell(additionalExpense.getAmount()).setBorderTop(Border.NO_BORDER));
         }
 
         return table;
