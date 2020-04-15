@@ -21,11 +21,8 @@ public class FlexboxTable extends Table {
         }
 
         setWidth(new UnitValue(UnitValue.PERCENT, 100));
-
-        int columnWidth = 100 / numColumns >= 33 ? 100 / numColumns : 33;
-        IntStream.range(0, numColumns).forEach((i) -> addCell(new Cell()
-                .setWidth(new UnitValue(UnitValue.PERCENT, columnWidth))
-                .setBorder(Border.NO_BORDER)
+        IntStream.range(0, numColumns).forEach((i) -> addCell(new UnborderedCell()
+                .setWidth(new UnitValue(UnitValue.PERCENT, 100 / numColumns))
                 .add(contents.get(i))));
     }
 

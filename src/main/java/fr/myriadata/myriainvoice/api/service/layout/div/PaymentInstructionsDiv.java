@@ -1,68 +1,91 @@
 package fr.myriadata.myriainvoice.api.service.layout.div;
 
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
 import fr.myriadata.myriainvoice.api.model.payment.PaymentInstructions;
 import fr.myriadata.myriainvoice.api.model.payment.PaymentMethod;
-import fr.myriadata.myriainvoice.api.service.layout.table.FlexboxTable;
+import fr.myriadata.myriainvoice.api.service.layout.paragraph.MultiLineParagraph;
+import fr.myriadata.myriainvoice.api.service.layout.table.*;
 import fr.myriadata.myriainvoice.api.service.layout.text.BoldText;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class PaymentInstructionsDiv extends Div {
     private Map<PaymentMethod, Class<? extends Div>> mapPaymentMethodToDiv = Map.of(
+        PaymentMethod.CASH,     MethodPaymentInstructionsDiv.class,
         PaymentMethod.CHEQUE,   ChequePaymentInstructionsDiv.class,
         PaymentMethod.TRANSFER, TransferPaymentInstructionsDiv.class
     );
 
-    private List<PaymentMethod> methodWithoutDiv = List.of(PaymentMethod.CASH);
-
     public PaymentInstructionsDiv(PaymentInstructions paymentInstructions) throws IOException {
-        add(new Paragraph(new BoldText("Conditions et modalités de paiement")));
-
-        int numColumns = numColumns(paymentInstructions);
-        List<IBlockElement> contents = contents(paymentInstructions);
-
-        add(new FlexboxTable(numColumns, contents));
+        add(terms(paymentInstructions));
+        add(methods(paymentInstructions));
         add(delayDiv());
     }
 
-    private int numColumns(PaymentInstructions paymentInstructions) {
-        return paymentInstructions.getPaymentMethods().contains(PaymentMethod.CASH)
-            ? paymentInstructions.getPaymentMethods().size()
-            : paymentInstructions.getPaymentMethods().size() + 1;
+    private Table terms(PaymentInstructions paymentInstructions) throws IOException {
+        Table contents = new Table(new UnitValue[] {
+                new UnitValue(UnitValue.createPercentValue(65f)),
+                new UnitValue(UnitValue.createPercentValue(35f))
+        }).setWidth(new UnitValue(UnitValue.PERCENT, 100f));
+
+        contents.addCell(new UnborderedCell().add(new MultiLineParagraph(paymentInstructions.getVariousTerms()))
+            .setTextAlignment(TextAlignment.RIGHT)
+            .setFontSize(8f));
+
+        Table paymentTable = new BorderedTable(new UnitValue[] {
+                new UnitValue(UnitValue.createPercentValue(65f)),
+                new UnitValue(UnitValue.createPercentValue(35f))
+        }).setWidth(new UnitValue(UnitValue.PERCENT, 100f));
+        paymentTable.addCell(new BorderedCell().add(new Paragraph(new BoldText("Net à payer"))));
+        paymentTable.addCell(new BorderedCell().add(new AmountCell(paymentInstructions.getAmount())));
+        paymentTable.addCell(new BorderedCell().add(new Paragraph(new BoldText("Date d'échéance"))));
+        paymentTable.addCell(new BorderedCell().add(new Paragraph(paymentInstructions.getPaymentDeadline()
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))).setTextAlignment(TextAlignment.RIGHT));
+        contents.addCell(new UnborderedCell().add(paymentTable));
+
+        return contents;
     }
 
-    private List<IBlockElement> contents(PaymentInstructions paymentInstructions) {
-        List<IBlockElement> contents = new ArrayList<>();
-        contents.add(new MainPaymentInstructionsDiv(paymentInstructions));
+    private Div methods(PaymentInstructions paymentInstructions) {
+        List<IBlockElement> paymentMethods = new ArrayList<>();
 
         for (PaymentMethod method : paymentInstructions.getPaymentMethods()) {
-            if (!methodWithoutDiv.contains(method)) {
-                try {
-                    contents.add(mapPaymentMethodToDiv.get(method).getConstructor(PaymentInstructions.class).newInstance(paymentInstructions));
-                } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                    throw new IllegalStateException("Error while creating specialized payment instruction div from declared method payment", e);
-                }
+            try {
+                paymentMethods.add(mapPaymentMethodToDiv.get(method)
+                        .getConstructor(PaymentMethod.class, PaymentInstructions.class)
+                        .newInstance(method, paymentInstructions));
+            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+                throw new IllegalStateException("Error while creating specialized payment instruction div from declared method payment", e);
             }
         }
 
-        return contents;
+        Div methodContents = new Div();
+        methodContents.add(new Paragraph("Méthode" + (paymentMethods.size() >= 2 ? "s" : "")  + " de paiment :"));
+        methodContents.add(new FlexboxTable(numColumns(paymentInstructions), paymentMethods));
+        return methodContents;
     }
 
     private Div delayDiv() {
         return new Div().add(new Paragraph()
                 .setMultipliedLeading(1)
                 .setTextAlignment(TextAlignment.JUSTIFIED)
+                .setFontSize(8f)
                 .add("En cas de retard de paiement, seront exigibles, conformément à l'article L 441-6 du code de commerce, une " +
                     "indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour " +
                     "frais de recouvrement de 40 euros."));
+    }
+
+    private int numColumns(PaymentInstructions paymentInstructions) {
+        return paymentInstructions.getPaymentMethods().contains(PaymentMethod.CASH)
+                ? paymentInstructions.getPaymentMethods().size()
+                : paymentInstructions.getPaymentMethods().size() + 1;
     }
 
 }

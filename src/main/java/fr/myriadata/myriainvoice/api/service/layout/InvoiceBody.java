@@ -6,7 +6,6 @@ import fr.myriadata.myriainvoice.api.model.Invoice;
 import fr.myriadata.myriainvoice.api.service.layout.div.OrderDiv;
 import fr.myriadata.myriainvoice.api.service.layout.div.PaymentInstructionsDiv;
 import fr.myriadata.myriainvoice.api.service.layout.div.TaxDiv;
-import fr.myriadata.myriainvoice.api.service.layout.paragraph.MultiLineParagraph;
 
 import java.io.IOException;
 
@@ -17,9 +16,6 @@ public class InvoiceBody extends Div {
         add(new Paragraph(""));
 
         add(new TaxDiv(invoice.getConsolidatedTaxes()));
-        add(new Paragraph(""));
-
-        add(new MultiLineParagraph(invoice.getVariousParticulars()));
         add(new Paragraph(""));
 
         add(new PaymentInstructionsDiv(invoice.getPaymentInstructions()));

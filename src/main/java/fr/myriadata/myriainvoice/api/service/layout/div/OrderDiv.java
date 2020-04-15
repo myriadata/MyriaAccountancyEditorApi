@@ -7,7 +7,6 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import fr.myriadata.myriainvoice.api.model.order.InvoiceLine;
 import fr.myriadata.myriainvoice.api.model.order.Order;
-import fr.myriadata.myriainvoice.api.service.layout.format.AmountFormat;
 import fr.myriadata.myriainvoice.api.service.layout.paragraph.NullableParagraph;
 import fr.myriadata.myriainvoice.api.service.layout.table.AmountCell;
 import fr.myriadata.myriainvoice.api.service.layout.table.BorderedCell;

@@ -13,6 +13,7 @@ public class PaymentInstructions {
 
     private BigDecimal amount;
     private LocalDate paymentDeadline;
+    private List<String> variousTerms;
     private List<PaymentMethod> paymentMethods;
 
     private ChequePaymentInstructions chequePaymentInstructions;

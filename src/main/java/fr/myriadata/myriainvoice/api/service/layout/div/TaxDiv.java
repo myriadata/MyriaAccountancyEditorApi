@@ -65,11 +65,11 @@ public class TaxDiv extends Div {
                 .setBorderTop(Border.NO_BORDER);
 
         table.addCell(new AmountCell(valueAddedTax.getBaseAmount())
-                .setBorderTop(Border.NO_BORDER).setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
+                .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
         table.addCell(new AmountCell(valueAddedTax.getTaxAmount())
-                .setBorderTop(Border.NO_BORDER).setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
+                .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
         table.addCell(new AmountCell(valueAddedTax.getIncludingTaxAmount())
-                .setBorderTop(Border.NO_BORDER).setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
+                .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)));
 
         return table;
     }

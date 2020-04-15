@@ -8,9 +8,7 @@ import fr.myriadata.myriainvoice.api.model.tax.ConsolidatedTaxes;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -24,7 +22,6 @@ public class Invoice {
 
     private Order order;
     private ConsolidatedTaxes consolidatedTaxes;
-    private List<String> variousParticulars;
     private PaymentInstructions paymentInstructions;
 
 }
