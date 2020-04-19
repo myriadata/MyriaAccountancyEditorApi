@@ -1,19 +1,17 @@
 package fr.myriadata.myriainvoice.api.model.payment;
 
+import fr.myriadata.myriainvoice.api.service.i18n.I18nService;
+
+import java.util.Locale;
+
 public enum PaymentMethod {
 
-    CASH        ("en espèces"),
-    CHEQUE      ("par chèque"),
-    TRANSFER    ("par virement");
+    CASH,
+    CHEQUE,
+    TRANSFER;
 
-    private String label;
-
-    PaymentMethod(String label) {
-        this.label = label;
-    }
-
-    public String getLabel() {
-        return label;
+    public String getLabel(Locale locale) {
+        return I18nService.get("invoice.payment.method." + this.name().toLowerCase(), locale);
     }
 
 }

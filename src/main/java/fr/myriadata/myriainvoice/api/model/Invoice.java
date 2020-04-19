@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Locale;
 
 @Getter
 @Setter
@@ -17,6 +18,7 @@ public class Invoice {
     private String number;
     private LocalDate date;
     private String currency;
+    private Locale locale;
 
     private Provider provider;
     private Contact sender;
