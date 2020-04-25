@@ -1,4 +1,4 @@
-package fr.myriadata.myriainvoice.api.service.pdf.table;
+package fr.myriadata.myriainvoice.api.service.invoice.pdf.table;
 
 import com.itextpdf.layout.element.Div;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.table.FlexboxTable;

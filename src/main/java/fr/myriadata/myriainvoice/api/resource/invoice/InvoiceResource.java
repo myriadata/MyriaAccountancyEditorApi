@@ -11,7 +11,7 @@ import java.io.InputStream;
 
 @Getter
 @Setter
-public class InvoiceMultipartBody {
+public class InvoiceResource {
 
     @FormParam("logo")
     @PartType(MediaType.APPLICATION_OCTET_STREAM)

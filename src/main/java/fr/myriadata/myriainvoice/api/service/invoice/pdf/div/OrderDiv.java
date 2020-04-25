@@ -5,9 +5,10 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
-import fr.myriadata.myriainvoice.api.model.order.InvoiceLine;
+import fr.myriadata.myriainvoice.api.model.order.OrderLine;
 import fr.myriadata.myriainvoice.api.model.order.Order;
 import fr.myriadata.myriainvoice.api.service.i18n.I18nService;
+import fr.myriadata.myriainvoice.api.service.invoice.pdf.constant.PdfConstants;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.format.AmountFormat;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.paragraph.NullableParagraph;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.table.AmountCell;
@@ -17,27 +18,44 @@ import fr.myriadata.myriainvoice.api.service.invoice.pdf.text.ObliqueText;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.table.BorderedCell;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class OrderDiv extends Div {
 
-
     public OrderDiv(Order order, Locale locale, String currency) throws IOException {
-        add(new Paragraph().setMultipliedLeading(1)
-            .add(new ObliqueText(String.format("%s %s %s\n",
-                    I18nService.get("invoice.order.number", locale),
-                    I18nService.get("common.operator.assignment", locale),
-                    order.getNumber())))
-            .add(new ObliqueText(String.format("%s %s %s",
-                    I18nService.get("invoice.order.reference", locale),
-                    I18nService.get("common.operator.assignment", locale),
-                    order.getCustomerReference()))));
+        setMarginBottom(PdfConstants.TEXT_FONT_SIZE);
 
-        add(new Paragraph(order.getDescription()));
-        add(expenses(order, locale, currency));
+        if (Objects.nonNull(order)) {
+            Paragraph orderIdParagraph = new Paragraph().setMultipliedLeading(1);
+            if (Objects.nonNull(order.getNumber())) {
+                orderIdParagraph.add(new ObliqueText(String.format("%s %s %s\n",
+                        I18nService.get("invoice.order.number", locale),
+                        I18nService.get("common.operator.assignment", locale),
+                        order.getNumber())));
+            }
+            if (Objects.nonNull(order.getCustomerReference())) {
+                orderIdParagraph.add(new ObliqueText(String.format("%s %s %s",
+                        I18nService.get("invoice.order.reference", locale),
+                        I18nService.get("common.operator.assignment", locale),
+                        order.getCustomerReference())));
+            }
+            if (!orderIdParagraph.isEmpty()) {
+                add(orderIdParagraph);
+            }
+
+            if (Objects.nonNull(order.getDescription())) {
+                add(new Paragraph(order.getDescription()));
+            }
+
+            if (Objects.nonNull(order.getLines()) && !order.getLines().isEmpty()) {
+                add(orderLines(order.getLines(), locale, currency));
+            }
+        }
     }
 
-    private Table expenses(Order order, Locale locale, String currency) throws IOException {
+    private Table orderLines(List<OrderLine> lines, Locale locale, String currency) throws IOException {
         Table table = new BorderedTable(new UnitValue[] {
                 new UnitValue(UnitValue.createPercentValue(55f)),
                 new UnitValue(UnitValue.createPercentValue(15f)),
@@ -50,7 +68,7 @@ public class OrderDiv extends Div {
                 .addHeaderCell(new HeaderCell(I18nService.get("invoice.order.line.price", locale)))
                 .addHeaderCell(new HeaderCell(I18nService.get("invoice.order.line.amount", locale)));
 
-        for (InvoiceLine line : order.getLines()) {
+        for (OrderLine line : lines) {
             table.addCell(new BorderedCell().add(new NullableParagraph(line.getDescription())));
             table.addCell(new BorderedCell().add(new NullableParagraph(new AmountFormat(locale).format(line.getQuantity()))
                     .setTextAlignment(TextAlignment.RIGHT)));

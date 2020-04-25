@@ -5,6 +5,10 @@ import fr.myriadata.myriainvoice.api.model.common.Address;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -15,10 +19,16 @@ public class Provider {
     @JsonIgnore
     private byte[] logo;
 
+    @NotBlank
     private String corporateName;
+
+    @Valid
     private Address headOfficeAddress;
+
     private String legalStatus;
     private BigDecimal shareCapital;
+
+    @Valid
     private List<IdentificationNumber> variousIdentificationNumbers;
 
 }

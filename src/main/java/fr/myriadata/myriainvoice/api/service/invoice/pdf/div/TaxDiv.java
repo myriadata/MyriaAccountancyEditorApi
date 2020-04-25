@@ -12,6 +12,7 @@ import com.itextpdf.layout.property.UnitValue;
 import fr.myriadata.myriainvoice.api.model.tax.ConsolidatedTaxes;
 import fr.myriadata.myriainvoice.api.model.tax.ValueAddedTax;
 import fr.myriadata.myriainvoice.api.service.i18n.I18nService;
+import fr.myriadata.myriainvoice.api.service.invoice.pdf.constant.PdfConstants;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.table.AmountCell;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.format.AmountFormat;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.table.BorderedCell;
@@ -20,17 +21,20 @@ import fr.myriadata.myriainvoice.api.service.invoice.pdf.table.HeaderCell;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 
 public class TaxDiv extends Div {
 
     public TaxDiv(ConsolidatedTaxes consolidatedTaxes, Locale locale, String currency) throws IOException {
-        add(tax(consolidatedTaxes.getByAmount(), locale, currency));
-        add(totalTax(consolidatedTaxes.getTotal(), locale, currency));
+        setMarginBottom(PdfConstants.TEXT_FONT_SIZE * 2);
+
+        if (Objects.nonNull(consolidatedTaxes)) {
+            add(tax(consolidatedTaxes.getByAmount(), locale, currency));
+            if (Objects.nonNull(consolidatedTaxes.getTotal())) {
+                add(totalTax(consolidatedTaxes.getTotal(), locale, currency));
+            }
+        }
     }
 
     private Table tax(Map<BigDecimal, ValueAddedTax> consolidatedTaxesByAmount, Locale locale, String currency) throws IOException {

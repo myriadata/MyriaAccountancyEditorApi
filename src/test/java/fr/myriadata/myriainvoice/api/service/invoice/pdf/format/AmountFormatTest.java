@@ -1,4 +1,4 @@
-package fr.myriadata.myriainvoice.api.service.pdf.format;
+package fr.myriadata.myriainvoice.api.service.invoice.pdf.format;
 
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.format.AmountFormat;
 import org.junit.jupiter.api.Assertions;

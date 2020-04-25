@@ -5,15 +5,19 @@ import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
+import fr.myriadata.myriainvoice.api.model.common.Address;
 import fr.myriadata.myriainvoice.api.model.party.IdentificationNumber;
 import fr.myriadata.myriainvoice.api.model.party.Provider;
 import fr.myriadata.myriainvoice.api.service.i18n.I18nService;
+import fr.myriadata.myriainvoice.api.service.invoice.pdf.constant.PdfConstants;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.format.AmountFormat;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.text.BoldText;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 
 public class InvoiceFooter extends Paragraph {
@@ -21,7 +25,7 @@ public class InvoiceFooter extends Paragraph {
     public InvoiceFooter(Provider provider, Locale locale, String currency, PdfDocument pdfDocument, PdfPage pdfPage) throws IOException {
         setMultipliedLeading(1);
         setTextAlignment(TextAlignment.CENTER);
-        setFontSize(7f);
+        setFontSize(PdfConstants.FOOTER_FONT_SIZE);
 
         addCompanyName(provider);
         addCompanyAddress(provider);
@@ -30,32 +34,57 @@ public class InvoiceFooter extends Paragraph {
     }
 
     private void addCompanyName(Provider provider) throws IOException {
-        add(new BoldText(provider.getCorporateName() + " " + provider.getLegalStatus()));
-        add("\n");
+        add(new BoldText(provider.getCorporateName() +
+                (Objects.nonNull(provider.getLegalStatus()) ? " " + provider.getLegalStatus() : "") +
+                "\n"));
     }
 
     private void addCompanyAddress(Provider provider) {
-        Optional.ofNullable(provider.getHeadOfficeAddress().getInsideBuildingInformations()).ifPresent(this::add);
-        Optional.ofNullable(provider.getHeadOfficeAddress().getOutsideBuildingInformations()).ifPresent(this::add);
-        Optional.ofNullable(provider.getHeadOfficeAddress().getStreet()).ifPresent(this::add);
-        Optional.ofNullable(provider.getHeadOfficeAddress().getPostOfficeBox()).ifPresent(this::add);
-        Optional.of(provider.getHeadOfficeAddress().getZipCode() + " " + provider.getHeadOfficeAddress().getCity())
-                .filter(s -> !s.strip().isEmpty())
-                .ifPresent(this::add);
-        Optional.ofNullable(provider.getHeadOfficeAddress().getCountry()).ifPresent(this::add);
-        add("\n");
+        Consumer<String> addWithSpaceSeparator = s -> this.add(s + " ");
+
+        if (Objects.nonNull(provider.getHeadOfficeAddress())) {
+            Optional.ofNullable(provider.getHeadOfficeAddress().getInsideBuildingInformations()).ifPresent(addWithSpaceSeparator);
+            Optional.ofNullable(provider.getHeadOfficeAddress().getOutsideBuildingInformations()).ifPresent(addWithSpaceSeparator);
+            Optional.ofNullable(provider.getHeadOfficeAddress().getStreet()).ifPresent(addWithSpaceSeparator);
+            Optional.ofNullable(provider.getHeadOfficeAddress().getPostOfficeBox()).ifPresent(addWithSpaceSeparator);
+            Optional.of(zipCodeAndCity(provider.getHeadOfficeAddress())).ifPresent(addWithSpaceSeparator);
+            Optional.ofNullable(provider.getHeadOfficeAddress().getCountry()).ifPresent(addWithSpaceSeparator);
+            add("\n");
+        }
+    }
+
+    private String zipCodeAndCity(Address address) {
+        String zipCodeAndCity = "";
+        if (Objects.nonNull(address.getZipCode())) {
+            zipCodeAndCity = zipCodeAndCity + address.getZipCode() + " ";
+        }
+        if (Objects.nonNull(address.getCity())) {
+            zipCodeAndCity = zipCodeAndCity + address.getCity();
+        }
+        return zipCodeAndCity;
     }
 
     private void addVariousInformations(Provider provider, Locale locale, String currency) {
-        add(new Text(String.format("%s : %s",
-                I18nService.get("invoice.footer.capital", locale),
-                new AmountFormat(locale, currency).format(provider.getShareCapital()))));
-        for (IdentificationNumber identificationNumbers : provider.getVariousIdentificationNumbers()) {
-            add(new Text(String.format(" %s %s %s %s",
-                    I18nService.get("common.operator.separator", locale),
-                    identificationNumbers.getLabel(),
-                    I18nService.get("common.operator.assignment", locale),
-                    identificationNumbers.getId())));
+        boolean firstElement = true;
+        if (Objects.nonNull(provider.getShareCapital())) {
+            add(new Text(String.format("%s : %s",
+                    I18nService.get("invoice.footer.capital", locale),
+                    new AmountFormat(locale, currency).format(provider.getShareCapital()))));
+            firstElement = false;
+        }
+
+        if (Objects.nonNull(provider.getVariousIdentificationNumbers())) {
+            for (IdentificationNumber identificationNumbers : provider.getVariousIdentificationNumbers()) {
+                if (!firstElement) {
+                    add(new Text(String.format(" %s ", I18nService.get("common.operator.separator", locale))));
+                }
+                firstElement = false;
+
+                add(new Text(String.format("%s %s %s",
+                        identificationNumbers.getLabel(),
+                        I18nService.get("common.operator.assignment", locale),
+                        identificationNumbers.getId())));
+            }
         }
     }
 

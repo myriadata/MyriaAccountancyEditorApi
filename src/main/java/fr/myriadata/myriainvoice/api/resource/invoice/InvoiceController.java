@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.util.Objects;
 
 @Path("/v1/invoices")
 public class InvoiceController {
@@ -23,9 +24,11 @@ public class InvoiceController {
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces("application/pdf")
-    public Response post(@MultipartForm InvoiceMultipartBody invoiceMultipartBody) throws IOException {
-        byte[] logo = invoiceMultipartBody.getLogo().readAllBytes();
-        invoiceMultipartBody.getInvoice().getProvider().setLogo(logo);
+    public Response post(@MultipartForm InvoiceResource invoiceMultipartBody) throws IOException {
+        if (Objects.nonNull(invoiceMultipartBody.getLogo())) {
+            byte[] logo = invoiceMultipartBody.getLogo().readAllBytes();
+            invoiceMultipartBody.getInvoice().getProvider().setLogo(logo);
+        }
 
         Response.ResponseBuilder response = Response.ok(invoiceService.generate(invoiceMultipartBody.getInvoice()));
         response.header("Content-Disposition", "attachment; filename=" + invoiceMultipartBody.getInvoice().getNumber() + ".pdf");

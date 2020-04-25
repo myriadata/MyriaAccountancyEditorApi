@@ -1,15 +1,13 @@
 package fr.myriadata.myriainvoice.api.service.invoice.pdf.div;
 
 import com.itextpdf.kernel.colors.ColorConstants;
-import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.element.IBlockElement;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import fr.myriadata.myriainvoice.api.model.payment.PaymentInstructions;
 import fr.myriadata.myriainvoice.api.model.payment.PaymentMethod;
 import fr.myriadata.myriainvoice.api.service.i18n.I18nService;
+import fr.myriadata.myriainvoice.api.service.invoice.pdf.constant.PdfConstants;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.format.DateFormat;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.paragraph.MultiLineParagraph;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.table.*;
@@ -17,10 +15,8 @@ import fr.myriadata.myriainvoice.api.service.invoice.pdf.text.BoldText;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 public class PaymentInstructionsDiv extends Div {
     private Map<PaymentMethod, Class<? extends Div>> mapPaymentMethodToDiv = Map.of(
@@ -31,7 +27,9 @@ public class PaymentInstructionsDiv extends Div {
 
     public PaymentInstructionsDiv(PaymentInstructions paymentInstructions, Locale locale, String currency) throws IOException {
         add(terms(paymentInstructions, locale, currency));
-        add(methods(paymentInstructions, locale));
+        if(Objects.nonNull(paymentInstructions.getPaymentMethods()) && !paymentInstructions.getPaymentMethods().isEmpty()) {
+            add(methods(paymentInstructions, locale));
+        }
         add(delayDiv(locale));
     }
 
@@ -41,9 +39,13 @@ public class PaymentInstructionsDiv extends Div {
                 new UnitValue(UnitValue.createPercentValue(35f))
         }).setWidth(new UnitValue(UnitValue.PERCENT, 100f));
 
-        contents.addCell(new UnborderedCell().add(new MultiLineParagraph(paymentInstructions.getVariousTerms()))
-            .setTextAlignment(TextAlignment.RIGHT)
-            .setFontSize(8f));
+        if (Objects.nonNull(paymentInstructions.getVariousTerms()) && !paymentInstructions.getVariousTerms().isEmpty()) {
+            contents.addCell(new UnborderedCell().add(new MultiLineParagraph(paymentInstructions.getVariousTerms()))
+                    .setTextAlignment(TextAlignment.RIGHT)
+                    .setFontSize(PdfConstants.TERM_FONT_SIZE));
+        } else {
+            contents.addCell(new UnborderedCell());
+        }
 
         Table paymentTable = new BorderedTable(new UnitValue[] {
                 new UnitValue(UnitValue.createPercentValue(60f)),
@@ -88,7 +90,7 @@ public class PaymentInstructionsDiv extends Div {
         return new Div().add(new Paragraph()
                 .setMultipliedLeading(1)
                 .setTextAlignment(TextAlignment.JUSTIFIED)
-                .setFontSize(8f)
+                .setFontSize(PdfConstants.TERM_FONT_SIZE)
                 .add(I18nService.get("invoice.payment.method.delay", locale)));
     }
 
