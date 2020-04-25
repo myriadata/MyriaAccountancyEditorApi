@@ -57,7 +57,7 @@ public class PaymentInstructionsDiv extends Div {
                 .setTextAlignment(TextAlignment.CENTER)
                 .setPadding(2f));
         paymentTable.addCell(new BorderedCell().add(new Paragraph(new BoldText(I18nService.get("invoice.payment.date", locale)))));
-        paymentTable.addCell(new BorderedCell().add(new Paragraph(new DateFormat(locale).format(paymentInstructions.getPaymentDeadline())))
+        paymentTable.addCell(new BorderedCell().add(new Paragraph(new DateFormat(locale).format(paymentInstructions.getDueDate())))
                 .setTextAlignment(TextAlignment.CENTER)
                 .setPadding(2f));
         contents.addCell(new UnborderedCell().add(paymentTable));

@@ -16,7 +16,7 @@ public class PaymentInstructions {
     private BigDecimal amount;
 
     @NotNull
-    private LocalDate paymentDeadline;
+    private LocalDate dueDate;
 
     private List<String> variousTerms;
     private List<PaymentMethod> paymentMethods;

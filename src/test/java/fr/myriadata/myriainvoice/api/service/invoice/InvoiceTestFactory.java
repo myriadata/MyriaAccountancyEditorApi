@@ -33,7 +33,7 @@ public class InvoiceTestFactory {
         invoice.getOrder().setDescription("description with accents special caracters &é'(§è!çà)-\\\"");
         invoice.setPaymentInstructions(new PaymentInstructions());
         invoice.getPaymentInstructions().setAmount(BigDecimal.valueOf(1386.26f));
-        invoice.getPaymentInstructions().setPaymentDeadline(LocalDate.of(2019, 07, 25));
+        invoice.getPaymentInstructions().setDueDate(LocalDate.of(2019, 07, 25));
         return invoice;
     }
 

@@ -20,7 +20,7 @@ public class InvoicePaymentInstructionsValidationTest {
 
     private static final Map<String, List<String>> expectedConstraintsByField = new HashMap<>() {{
         put("generate.arg0.paymentInstructions.amount", List.of("{javax.validation.constraints.NotNull.message}"));
-        put("generate.arg0.paymentInstructions.paymentDeadline", List.of("{javax.validation.constraints.NotNull.message}"));
+        put("generate.arg0.paymentInstructions.dueDate", List.of("{javax.validation.constraints.NotNull.message}"));
     }};
 
     @Inject
@@ -46,7 +46,7 @@ public class InvoicePaymentInstructionsValidationTest {
         Invoice invoice = InvoiceTestFactory.createLightInvoice();
         invoice.setPaymentInstructions(new PaymentInstructions());
         invoice.getPaymentInstructions().setAmount(BigDecimal.valueOf(1386.26f));
-        invoice.getPaymentInstructions().setPaymentDeadline(LocalDate.of(2019, 07, 25));
+        invoice.getPaymentInstructions().setDueDate(LocalDate.of(2019, 07, 25));
 
         // WHEN
         byte[] pdf = invoiceService.generate(invoice);
