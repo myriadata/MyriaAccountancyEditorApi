@@ -22,7 +22,7 @@ public class InvoiceService {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfDocument pdfDocument = new PdfDocument(new PdfWriter(byteArrayOutputStream));
         Document document = new Document(pdfDocument);
-        document.setBottomMargin(pdfDocument.getNumberOfPages() > 1 ? 90f : 72f);
+        document.setBottomMargin(63f);
         document.setFontSize(PdfConstants.TEXT_FONT_SIZE);
 
         document.add(new InvoiceHeader(invoice));
