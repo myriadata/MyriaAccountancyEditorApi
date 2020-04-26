@@ -14,20 +14,20 @@ import java.util.List;
 import java.util.Map;
 
 @QuarkusTest
-public class InvoiceSenderAddressValidationTest {
+public class InvoiceCustomerAddressValidationTest {
 
     private static final Map<String, List<String>> expectedConstraintsByField = new HashMap<>() {{
-        put("generate.arg0.sender.address.identification", List.of("{javax.validation.constraints.NotBlank.message}"));
+        put("generate.arg0.customer.address.identification", List.of("{javax.validation.constraints.NotBlank.message}"));
     }};
 
     @Inject
     InvoiceService invoiceService;
 
     @Test
-    public void shouldSignalConstraintErrorWhenEmptyAddressSender() {
+    public void shouldSignalConstraintErrorWhenEmptyAddressCustomer() {
         // GIVEN
         Invoice invoice = InvoiceTestFactory.createLightInvoice();
-        invoice.getSender().setAddress(new Address());
+        invoice.getCustomer().setAddress(new Address());
         // WHEN
         ConstraintViolationException exception = Assertions.assertThrows(ConstraintViolationException.class, () -> invoiceService.generate(invoice));
 
@@ -37,11 +37,11 @@ public class InvoiceSenderAddressValidationTest {
     }
 
     @Test
-    public void shouldGenerateInvoiceWithValidSenderAddress() throws IOException {
+    public void shouldGenerateInvoiceWithValidCustomerAddress() throws IOException {
         // GIVEN
         Invoice invoice = InvoiceTestFactory.createLightInvoice();
-        invoice.getSender().setAddress(new Address());
-        invoice.getSender().getAddress().setIdentification("identificationAddressSender");
+        invoice.getCustomer().setAddress(new Address());
+        invoice.getCustomer().getAddress().setIdentification("identificationAddressCustomer");
 
         // WHEN
         byte[] pdf = invoiceService.generate(invoice);

@@ -38,7 +38,7 @@ public class InvoiceHeader extends Div {
             senderDiv(invoice),
             new Div()
                 .add(idDiv(invoice).setMarginBottom(PdfConstants.TEXT_FONT_SIZE * 3))
-                .add(recipientDiv(invoice))
+                .add(customerDiv(invoice))
         )));
     }
 
@@ -51,7 +51,7 @@ public class InvoiceHeader extends Div {
     private Table senderAndRecipeint(Invoice invoice) throws IOException {
         return new FlexboxTable(2, Arrays.asList(
             senderDiv(invoice),
-            recipientDiv(invoice)
+            customerDiv(invoice)
         ));
     }
 
@@ -81,21 +81,21 @@ public class InvoiceHeader extends Div {
 
     private Div senderDiv(Invoice invoice) throws IOException {
         return new Div()
-                .add(new AddressParagraph(invoice.getSender().getAddress()))
-                .add(new ContactParagraph(invoice.getSender(), invoice.getLocale()));
+                .add(new AddressParagraph(invoice.getProvider().getAddress()))
+                .add(new ContactParagraph(invoice.getProvider().getContact(), invoice.getLocale()));
     }
 
-    private Div recipientDiv(Invoice invoice) throws IOException {
+    private Div customerDiv(Invoice invoice) throws IOException {
         Paragraph toParagraph = new Paragraph();
-        toParagraph.add(I18nService.get("invoice.header.to", invoice.getLocale()) + " ");
-        if (Objects.nonNull(invoice.getRecipient().getName())) {
-            toParagraph.add(invoice.getRecipient().getName());
+        toParagraph.add(I18nService.get("invoice.header.recipient", invoice.getLocale()) + " ");
+        if (Objects.nonNull(invoice.getCustomer().getRecipient())) {
+            toParagraph.add(invoice.getCustomer().getRecipient());
         }
 
         return new Div()
                 .setMarginTop(PdfConstants.TEXT_FONT_SIZE)
                 .add(toParagraph)
-                .add(new AddressParagraph(invoice.getRecipient().getAddress()));
+                .add(new AddressParagraph(invoice.getCustomer().getAddress()));
     }
 
 }

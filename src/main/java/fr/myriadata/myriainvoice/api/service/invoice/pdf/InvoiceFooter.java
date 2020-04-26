@@ -43,13 +43,13 @@ public class InvoiceFooter extends Paragraph {
     private void addCompanyAddress(Provider provider) {
         Consumer<String> addWithSpaceSeparator = s -> this.add(s + " ");
 
-        if (Objects.nonNull(provider.getHeadOfficeAddress())) {
-            Optional.ofNullable(provider.getHeadOfficeAddress().getInsideBuildingInformations()).ifPresent(addWithSpaceSeparator);
-            Optional.ofNullable(provider.getHeadOfficeAddress().getOutsideBuildingInformations()).ifPresent(addWithSpaceSeparator);
-            Optional.ofNullable(provider.getHeadOfficeAddress().getStreet()).ifPresent(addWithSpaceSeparator);
-            Optional.ofNullable(provider.getHeadOfficeAddress().getPostOfficeBox()).ifPresent(addWithSpaceSeparator);
-            Optional.of(zipCodeAndCity(provider.getHeadOfficeAddress())).ifPresent(addWithSpaceSeparator);
-            Optional.ofNullable(provider.getHeadOfficeAddress().getCountry()).ifPresent(addWithSpaceSeparator);
+        if (Objects.nonNull(provider.getAddress())) {
+            Optional.ofNullable(provider.getAddress().getInsideBuildingInformations()).ifPresent(addWithSpaceSeparator);
+            Optional.ofNullable(provider.getAddress().getOutsideBuildingInformations()).ifPresent(addWithSpaceSeparator);
+            Optional.ofNullable(provider.getAddress().getStreet()).ifPresent(addWithSpaceSeparator);
+            Optional.ofNullable(provider.getAddress().getPostOfficeBox()).ifPresent(addWithSpaceSeparator);
+            Optional.of(zipCodeAndCity(provider.getAddress())).ifPresent(addWithSpaceSeparator);
+            Optional.ofNullable(provider.getAddress().getCountry()).ifPresent(addWithSpaceSeparator);
             add("\n");
         }
     }

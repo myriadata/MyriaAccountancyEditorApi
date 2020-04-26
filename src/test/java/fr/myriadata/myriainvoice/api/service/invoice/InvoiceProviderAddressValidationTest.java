@@ -17,7 +17,7 @@ import java.util.Map;
 public class InvoiceProviderAddressValidationTest {
 
     private static final Map<String, List<String>> expectedConstraintsByField = new HashMap<>() {{
-        put("generate.arg0.provider.headOfficeAddress.identification", List.of("{javax.validation.constraints.NotBlank.message}"));
+        put("generate.arg0.provider.address.identification", List.of("{javax.validation.constraints.NotBlank.message}"));
     }};
 
     @Inject
@@ -27,7 +27,7 @@ public class InvoiceProviderAddressValidationTest {
     public void shouldSignalConstraintErrorWhenEmptyAddressProvider() {
         // GIVEN
         Invoice invoice = InvoiceTestFactory.createLightInvoice();
-        invoice.getProvider().setHeadOfficeAddress(new Address());
+        invoice.getProvider().setAddress(new Address());
 
         // WHEN
         ConstraintViolationException exception = Assertions.assertThrows(ConstraintViolationException.class, () -> invoiceService.generate(invoice));
@@ -41,8 +41,8 @@ public class InvoiceProviderAddressValidationTest {
     public void shouldGenerateInvoiceWithValidProviderAddress() throws IOException {
         // GIVEN
         Invoice invoice = InvoiceTestFactory.createLightInvoice();
-        invoice.getProvider().setHeadOfficeAddress(new Address());
-        invoice.getProvider().getHeadOfficeAddress().setIdentification("identificationAddressHeadOffice");
+        invoice.getProvider().setAddress(new Address());
+        invoice.getProvider().getAddress().setIdentification("identificationAddressHeadOffice");
 
         // WHEN
         byte[] pdf = invoiceService.generate(invoice);

@@ -1,6 +1,6 @@
 package fr.myriadata.myriainvoice.api.model;
 
-import fr.myriadata.myriainvoice.api.model.common.Contact;
+import fr.myriadata.myriainvoice.api.model.party.Customer;
 import fr.myriadata.myriainvoice.api.model.order.Order;
 import fr.myriadata.myriainvoice.api.model.party.Provider;
 import fr.myriadata.myriainvoice.api.model.payment.PaymentInstructions;
@@ -11,7 +11,6 @@ import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Currency;
@@ -40,11 +39,7 @@ public class Invoice {
 
     @NotNull
     @Valid
-    private Contact sender;
-
-    @NotNull
-    @Valid
-    private Contact recipient;
+    private Customer customer;
 
     @NotNull
     @Valid

@@ -2,8 +2,8 @@ package fr.myriadata.myriainvoice.api.service.invoice;
 
 import fr.myriadata.myriainvoice.api.model.Invoice;
 import fr.myriadata.myriainvoice.api.model.common.Address;
-import fr.myriadata.myriainvoice.api.model.common.Contact;
 import fr.myriadata.myriainvoice.api.model.order.Order;
+import fr.myriadata.myriainvoice.api.model.party.Customer;
 import fr.myriadata.myriainvoice.api.model.party.Provider;
 import fr.myriadata.myriainvoice.api.model.payment.PaymentInstructions;
 
@@ -24,12 +24,11 @@ public class InvoiceTestFactory {
         invoice.setLocale(Locale.FRANCE);
         invoice.setProvider(new Provider());
         invoice.getProvider().setCorporateName("CorporateName");
-        invoice.setSender(new Contact());
-        invoice.getSender().setAddress(new Address());
-        invoice.getSender().getAddress().setIdentification("identificationAddessSender");
-        invoice.setRecipient(new Contact());
-        invoice.getRecipient().setAddress(new Address());
-        invoice.getRecipient().getAddress().setIdentification("identificationAddessRecipient");
+        invoice.getProvider().setAddress(new Address());
+        invoice.getProvider().getAddress().setIdentification("providerAddress");
+        invoice.setCustomer(new Customer());
+        invoice.getCustomer().setAddress(new Address());
+        invoice.getCustomer().getAddress().setIdentification("identificationAddressCustomer");
         invoice.setOrder(new Order());
         invoice.getOrder().setDescription("description with accents special caracters &é'(§è!çà)-\\\"");
         invoice.setPaymentInstructions(new PaymentInstructions());

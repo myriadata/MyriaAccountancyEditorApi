@@ -22,8 +22,9 @@ public class Provider {
     @NotBlank
     private String corporateName;
 
+    @NotNull
     @Valid
-    private Address headOfficeAddress;
+    private Address address;
 
     private String legalStatus;
     private BigDecimal shareCapital;
@@ -31,4 +32,5 @@ public class Provider {
     @Valid
     private List<IdentificationNumber> variousIdentificationNumbers;
 
+    private Contact contact;
 }

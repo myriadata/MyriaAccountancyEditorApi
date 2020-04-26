@@ -21,8 +21,7 @@ public class InvoiceValidationTest {
         put("generate.arg0.currency",            List.of("{javax.validation.constraints.NotNull.message}"));
         put("generate.arg0.locale",              List.of("{javax.validation.constraints.NotNull.message}", "Locale not Allowed"));
         put("generate.arg0.provider",            List.of("{javax.validation.constraints.NotNull.message}"));
-        put("generate.arg0.sender",              List.of("{javax.validation.constraints.NotNull.message}"));
-        put("generate.arg0.recipient",           List.of("{javax.validation.constraints.NotNull.message}"));
+        put("generate.arg0.customer",            List.of("{javax.validation.constraints.NotNull.message}"));
         put("generate.arg0.order",               List.of("{javax.validation.constraints.NotNull.message}"));
         put("generate.arg0.paymentInstructions", List.of("{javax.validation.constraints.NotNull.message}"));
     }};
