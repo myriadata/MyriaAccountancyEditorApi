@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 
@@ -44,25 +43,9 @@ public class InvoiceFooter extends Paragraph {
         Consumer<String> addWithSpaceSeparator = s -> this.add(s + " ");
 
         if (Objects.nonNull(provider.getAddress())) {
-            Optional.ofNullable(provider.getAddress().getInsideBuildingInformations()).ifPresent(addWithSpaceSeparator);
-            Optional.ofNullable(provider.getAddress().getOutsideBuildingInformations()).ifPresent(addWithSpaceSeparator);
-            Optional.ofNullable(provider.getAddress().getStreet()).ifPresent(addWithSpaceSeparator);
-            Optional.ofNullable(provider.getAddress().getPostOfficeBox()).ifPresent(addWithSpaceSeparator);
-            Optional.of(zipCodeAndCity(provider.getAddress())).ifPresent(addWithSpaceSeparator);
-            Optional.ofNullable(provider.getAddress().getCountry()).ifPresent(addWithSpaceSeparator);
+            add(new Text(provider.getAddress().display(" ")));
             add("\n");
         }
-    }
-
-    private String zipCodeAndCity(Address address) {
-        String zipCodeAndCity = "";
-        if (Objects.nonNull(address.getZipCode())) {
-            zipCodeAndCity = zipCodeAndCity + address.getZipCode() + " ";
-        }
-        if (Objects.nonNull(address.getCity())) {
-            zipCodeAndCity = zipCodeAndCity + address.getCity();
-        }
-        return zipCodeAndCity;
     }
 
     private void addVariousInformations(Provider provider, Locale locale, Currency currency) {

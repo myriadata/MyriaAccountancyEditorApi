@@ -4,8 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 @Getter
 @Setter
@@ -22,4 +23,26 @@ public class Address {
     private String city; // with CEDEX if needed
     private String country;
 
+    public String display(String separator) {
+        StringBuffer stringBuilder = new StringBuffer();
+        Consumer<String> append = s -> stringBuilder.append(s + separator);
+        Optional.ofNullable(insideBuildingInformations).ifPresent(append);
+        Optional.ofNullable(outsideBuildingInformations).ifPresent(append);
+        Optional.ofNullable(street).ifPresent(append);
+        Optional.ofNullable(postOfficeBox).ifPresent(append);
+        Optional.of(zipCodeAndCity()).ifPresent(append);
+        Optional.ofNullable(country).ifPresent(append);
+        return stringBuilder.toString();
+    }
+
+    private String zipCodeAndCity() {
+        String zipCodeAndCity = "";
+        if (Objects.nonNull(zipCode)) {
+            zipCodeAndCity = zipCodeAndCity + zipCode + " ";
+        }
+        if (Objects.nonNull(city)) {
+            zipCodeAndCity = zipCodeAndCity + city;
+        }
+        return zipCodeAndCity;
+    }
 }

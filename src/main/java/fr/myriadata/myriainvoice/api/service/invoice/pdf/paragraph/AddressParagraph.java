@@ -18,24 +18,7 @@ public class AddressParagraph extends Paragraph {
         setMarginBottom(PdfConstants.TEXT_FONT_SIZE);
 
         add(new BoldText(String.format("%s\n", address.getIdentification())));
-
-        Consumer<String> addToParagraph = s -> add(new Text(String.format("%s\n", s)));
-        Optional.ofNullable(address.getInsideBuildingInformations()).ifPresent(addToParagraph);
-        Optional.ofNullable(address.getOutsideBuildingInformations()).ifPresent(addToParagraph);
-        Optional.ofNullable(address.getStreet()).ifPresent(addToParagraph);
-        Optional.ofNullable(address.getPostOfficeBox()).ifPresent(addToParagraph);
-        Optional.of(zipCodeAndCity(address)).ifPresent(addToParagraph);
-        Optional.ofNullable(address.getCountry()).ifPresent(addToParagraph);
+        add(new Text(address.display("\n")));
     }
 
-    private String zipCodeAndCity(Address address) {
-        String zipCodeAndCity = "";
-        if (Objects.nonNull(address.getZipCode())) {
-            zipCodeAndCity = zipCodeAndCity + address.getZipCode() + " ";
-        }
-        if (Objects.nonNull(address.getCity())) {
-            zipCodeAndCity = zipCodeAndCity + address.getCity();
-        }
-        return zipCodeAndCity;
-    }
 }
