@@ -26,7 +26,7 @@ import java.util.*;
 
 public class TaxDiv extends Div {
 
-    public TaxDiv(ConsolidatedTaxes consolidatedTaxes, Locale locale, String currency) throws IOException {
+    public TaxDiv(ConsolidatedTaxes consolidatedTaxes, Locale locale, Currency currency) throws IOException {
         setMarginBottom(PdfConstants.TEXT_FONT_SIZE * 2);
 
         if (Objects.nonNull(consolidatedTaxes)) {
@@ -37,7 +37,7 @@ public class TaxDiv extends Div {
         }
     }
 
-    private Table tax(Map<BigDecimal, ValueAddedTax> consolidatedTaxesByAmount, Locale locale, String currency) throws IOException {
+    private Table tax(Map<BigDecimal, ValueAddedTax> consolidatedTaxesByAmount, Locale locale, Currency currency) throws IOException {
         Table table = new BorderedTable(new UnitValue[] {
                 new UnitValue(UnitValue.createPercentValue(16f)),
                 new UnitValue(UnitValue.createPercentValue(28f)),
@@ -62,7 +62,7 @@ public class TaxDiv extends Div {
         return table;
     }
 
-    private Table totalTax(ValueAddedTax valueAddedTax, Locale locale, String currency) throws IOException {
+    private Table totalTax(ValueAddedTax valueAddedTax, Locale locale, Currency currency) throws IOException {
         Table table = new BorderedTable(new UnitValue[] {
                 new UnitValue(UnitValue.createPercentValue(28f)),
                 new UnitValue(UnitValue.createPercentValue(28f)),

@@ -17,8 +17,7 @@ import java.util.Map;
 public class InvoiceProviderAddressValidationTest {
 
     private static final Map<String, List<String>> expectedConstraintsByField = new HashMap<>() {{
-        put("generate.arg0.provider.headOfficeAddress.identification", List.of(
-                "{javax.validation.constraints.NotBlank.message}"));
+        put("generate.arg0.provider.headOfficeAddress.identification", List.of("{javax.validation.constraints.NotBlank.message}"));
     }};
 
     @Inject

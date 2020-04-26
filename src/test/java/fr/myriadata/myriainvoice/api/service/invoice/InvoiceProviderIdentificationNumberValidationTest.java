@@ -18,10 +18,8 @@ import java.util.Map;
 public class InvoiceProviderIdentificationNumberValidationTest {
 
     private static final Map<String, List<String>> expectedConstraintsByField = new HashMap<>() {{
-        put("generate.arg0.provider.variousIdentificationNumbers[0].label", List.of(
-                "{javax.validation.constraints.NotBlank.message}"));
-        put("generate.arg0.provider.variousIdentificationNumbers[0].id", List.of(
-                "{javax.validation.constraints.NotBlank.message}"));
+        put("generate.arg0.provider.variousIdentificationNumbers[0].label", List.of("{javax.validation.constraints.NotBlank.message}"));
+        put("generate.arg0.provider.variousIdentificationNumbers[0].id",    List.of("{javax.validation.constraints.NotBlank.message}"));
     }};
 
     @Inject

@@ -18,13 +18,14 @@ import fr.myriadata.myriainvoice.api.service.invoice.pdf.text.ObliqueText;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.table.BorderedCell;
 
 import java.io.IOException;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 public class OrderDiv extends Div {
 
-    public OrderDiv(Order order, Locale locale, String currency) throws IOException {
+    public OrderDiv(Order order, Locale locale, Currency currency) throws IOException {
         setMarginBottom(PdfConstants.TEXT_FONT_SIZE);
 
         if (Objects.nonNull(order)) {
@@ -55,7 +56,7 @@ public class OrderDiv extends Div {
         }
     }
 
-    private Table orderLines(List<OrderLine> lines, Locale locale, String currency) throws IOException {
+    private Table orderLines(List<OrderLine> lines, Locale locale, Currency currency) throws IOException {
         Table table = new BorderedTable(new UnitValue[] {
                 new UnitValue(UnitValue.createPercentValue(55f)),
                 new UnitValue(UnitValue.createPercentValue(15f)),

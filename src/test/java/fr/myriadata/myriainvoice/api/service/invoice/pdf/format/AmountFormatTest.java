@@ -1,10 +1,10 @@
 package fr.myriadata.myriainvoice.api.service.invoice.pdf.format;
 
-import fr.myriadata.myriainvoice.api.service.invoice.pdf.format.AmountFormat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.Locale;
 
 public class AmountFormatTest {
@@ -49,7 +49,7 @@ public class AmountFormatTest {
     @Test
     public void shouldReturnAmountWithCurrency() {
         // GIVEN
-        AmountFormat format = new AmountFormat(Locale.FRANCE, "EUR");
+        AmountFormat format = new AmountFormat(Locale.FRANCE, Currency.getInstance("EUR"));
 
         // WHEN
         String result = format.format(BigDecimal.valueOf(1337.42));

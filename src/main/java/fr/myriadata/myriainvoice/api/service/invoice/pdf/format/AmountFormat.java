@@ -19,9 +19,9 @@ public class AmountFormat {
         setFractionDigits(fractionDigits);
     }
 
-    public AmountFormat(Locale locale, String currency) {
+    public AmountFormat(Locale locale, Currency currency) {
         this.numberFormat = NumberFormat.getCurrencyInstance(locale);
-        this.numberFormat.setCurrency(Currency.getInstance(currency));
+        this.numberFormat.setCurrency(currency);
         setFractionDigits(2);
     }
 

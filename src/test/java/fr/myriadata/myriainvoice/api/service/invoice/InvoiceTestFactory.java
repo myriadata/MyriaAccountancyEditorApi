@@ -9,6 +9,7 @@ import fr.myriadata.myriainvoice.api.model.payment.PaymentInstructions;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Currency;
 import java.util.Locale;
 
 public class InvoiceTestFactory {
@@ -19,7 +20,7 @@ public class InvoiceTestFactory {
         Invoice invoice = new Invoice();
         invoice.setNumber("#Invoice-Number");
         invoice.setDate(LocalDate.of(2019, 06, 25));
-        invoice.setCurrency("EUR");
+        invoice.setCurrency(Currency.getInstance("EUR"));
         invoice.setLocale(Locale.FRANCE);
         invoice.setProvider(new Provider());
         invoice.getProvider().setCorporateName("CorporateName");

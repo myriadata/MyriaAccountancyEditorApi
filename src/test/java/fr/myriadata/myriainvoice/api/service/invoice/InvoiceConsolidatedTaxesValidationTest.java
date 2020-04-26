@@ -19,15 +19,12 @@ import java.util.Map;
 public class InvoiceConsolidatedTaxesValidationTest {
 
     private static final Map<String, List<String>> expectedNotNullConstraintsByField = new HashMap<>() {{
-        put("generate.arg0.consolidatedTaxes.byAmount", List.of(
-                "{javax.validation.constraints.NotNull.message}"));
-        put("generate.arg0.consolidatedTaxes.total", List.of(
-                "{javax.validation.constraints.NotNull.message}"));
+        put("generate.arg0.consolidatedTaxes.byAmount", List.of("{javax.validation.constraints.NotNull.message}"));
+        put("generate.arg0.consolidatedTaxes.total",    List.of("{javax.validation.constraints.NotNull.message}"));
     }};
 
     private static final Map<String, List<String>> expectedSizeConstraintsByField = new HashMap<>() {{
-        put("generate.arg0.consolidatedTaxes.byAmount", List.of(
-                "{javax.validation.constraints.Size.message}"));
+        put("generate.arg0.consolidatedTaxes.byAmount", List.of("{javax.validation.constraints.Size.message}"));
     }};
 
     @Inject

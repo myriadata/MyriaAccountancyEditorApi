@@ -19,7 +19,7 @@ import java.util.Map;
 public class InvoicePaymentInstructionsValidationTest {
 
     private static final Map<String, List<String>> expectedConstraintsByField = new HashMap<>() {{
-        put("generate.arg0.paymentInstructions.amount", List.of("{javax.validation.constraints.NotNull.message}"));
+        put("generate.arg0.paymentInstructions.amount",  List.of("{javax.validation.constraints.NotNull.message}"));
         put("generate.arg0.paymentInstructions.dueDate", List.of("{javax.validation.constraints.NotNull.message}"));
     }};
 

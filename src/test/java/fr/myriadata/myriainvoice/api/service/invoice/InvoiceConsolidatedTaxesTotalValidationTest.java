@@ -19,24 +19,12 @@ import java.util.Map;
 public class InvoiceConsolidatedTaxesTotalValidationTest {
 
     private static final Map<String, List<String>> expectedConstraintsByField = new HashMap<>() {{
-        put("generate.arg0.consolidatedTaxes.byAmount[1].taxAmount", List.of(
-                "{javax.validation.constraints.NotNull.message}"
-        ));
-        put("generate.arg0.consolidatedTaxes.byAmount[1].baseAmount", List.of(
-                "{javax.validation.constraints.NotNull.message}"
-        ));
-        put("generate.arg0.consolidatedTaxes.byAmount[1].includingTaxAmount", List.of(
-                "{javax.validation.constraints.NotNull.message}"
-        ));
-        put("generate.arg0.consolidatedTaxes.total.taxAmount", List.of(
-                "{javax.validation.constraints.NotNull.message}"
-        ));
-        put("generate.arg0.consolidatedTaxes.total.baseAmount", List.of(
-                "{javax.validation.constraints.NotNull.message}"
-        ));
-        put("generate.arg0.consolidatedTaxes.total.includingTaxAmount", List.of(
-                "{javax.validation.constraints.NotNull.message}"
-        ));
+        put("generate.arg0.consolidatedTaxes.byAmount[1].taxAmount",          List.of("{javax.validation.constraints.NotNull.message}"));
+        put("generate.arg0.consolidatedTaxes.byAmount[1].baseAmount",         List.of("{javax.validation.constraints.NotNull.message}"));
+        put("generate.arg0.consolidatedTaxes.byAmount[1].includingTaxAmount", List.of("{javax.validation.constraints.NotNull.message}"));
+        put("generate.arg0.consolidatedTaxes.total.taxAmount",                List.of("{javax.validation.constraints.NotNull.message}"));
+        put("generate.arg0.consolidatedTaxes.total.baseAmount",               List.of("{javax.validation.constraints.NotNull.message}"));
+        put("generate.arg0.consolidatedTaxes.total.includingTaxAmount",       List.of("{javax.validation.constraints.NotNull.message}"));
     }};
 
     @Inject

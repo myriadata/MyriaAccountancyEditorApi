@@ -12,15 +12,16 @@ import fr.myriadata.myriainvoice.api.model.party.Provider;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.InvoiceFooter;
 import lombok.SneakyThrows;
 
+import java.util.Currency;
 import java.util.Locale;
 
 public class TextFooterEventHandler implements IEventHandler {
 
     private Provider provider;
     private Locale locale;
-    private String currency;
+    private Currency currency;
 
-    public TextFooterEventHandler(Provider provider, Locale locale, String currency) {
+    public TextFooterEventHandler(Provider provider, Locale locale, Currency currency) {
         this.provider = provider;
         this.locale = locale;
         this.currency = currency;

@@ -14,6 +14,7 @@ import fr.myriadata.myriainvoice.api.service.invoice.pdf.format.AmountFormat;
 import fr.myriadata.myriainvoice.api.service.invoice.pdf.text.BoldText;
 
 import java.io.IOException;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,7 +23,7 @@ import java.util.function.Consumer;
 
 public class InvoiceFooter extends Paragraph {
 
-    public InvoiceFooter(Provider provider, Locale locale, String currency, PdfDocument pdfDocument, PdfPage pdfPage) throws IOException {
+    public InvoiceFooter(Provider provider, Locale locale, Currency currency, PdfDocument pdfDocument, PdfPage pdfPage) throws IOException {
         setMultipliedLeading(1);
         setTextAlignment(TextAlignment.CENTER);
         setFontSize(PdfConstants.FOOTER_FONT_SIZE);
@@ -64,7 +65,7 @@ public class InvoiceFooter extends Paragraph {
         return zipCodeAndCity;
     }
 
-    private void addVariousInformations(Provider provider, Locale locale, String currency) {
+    private void addVariousInformations(Provider provider, Locale locale, Currency currency) {
         boolean firstElement = true;
         if (Objects.nonNull(provider.getShareCapital())) {
             add(new Text(String.format("%s : %s",

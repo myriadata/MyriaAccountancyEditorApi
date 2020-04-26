@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Currency;
 import java.util.Locale;
 
 @Getter
@@ -26,8 +27,8 @@ public class Invoice {
     @NotNull
     private LocalDate date;
 
-    @NotBlank
-    private String currency; // TODO : use Currency type
+    @NotNull
+    private Currency currency;
 
     @NotNull
     @AllowedLocale

@@ -25,7 +25,7 @@ public class PaymentInstructionsDiv extends Div {
         PaymentMethod.TRANSFER, TransferPaymentInstructionsDiv.class
     );
 
-    public PaymentInstructionsDiv(PaymentInstructions paymentInstructions, Locale locale, String currency) throws IOException {
+    public PaymentInstructionsDiv(PaymentInstructions paymentInstructions, Locale locale, Currency currency) throws IOException {
         add(terms(paymentInstructions, locale, currency));
         if(Objects.nonNull(paymentInstructions.getPaymentMethods()) && !paymentInstructions.getPaymentMethods().isEmpty()) {
             add(methods(paymentInstructions, locale));
@@ -33,7 +33,7 @@ public class PaymentInstructionsDiv extends Div {
         add(delayDiv(locale));
     }
 
-    private Table terms(PaymentInstructions paymentInstructions, Locale locale, String currency) throws IOException {
+    private Table terms(PaymentInstructions paymentInstructions, Locale locale, Currency currency) throws IOException {
         Table contents = new Table(new UnitValue[] {
                 new UnitValue(UnitValue.createPercentValue(65f)),
                 new UnitValue(UnitValue.createPercentValue(35f))
