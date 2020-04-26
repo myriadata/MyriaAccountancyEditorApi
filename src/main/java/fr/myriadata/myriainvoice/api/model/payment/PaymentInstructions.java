@@ -18,7 +18,7 @@ public class PaymentInstructions {
     @NotNull
     private LocalDate dueDate;
 
-    private List<String> variousTerms;
+    private List<String> terms;
     private List<PaymentMethod> paymentMethods;
     private ChequePaymentInstructions chequePaymentInstructions;
     private TransferPaymentInstructions transferPaymentInstructions;
