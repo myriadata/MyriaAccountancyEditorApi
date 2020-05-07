@@ -5,7 +5,6 @@ import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
-import fr.myriadata.myriainvoice.api.model.common.Address;
 import fr.myriadata.myriainvoice.api.model.party.IdentificationNumber;
 import fr.myriadata.myriainvoice.api.model.party.Provider;
 import fr.myriadata.myriainvoice.api.service.i18n.I18nService;
@@ -52,7 +51,7 @@ public class InvoiceFooter extends Paragraph {
         boolean firstElement = true;
         if (Objects.nonNull(provider.getShareCapital())) {
             add(new Text(String.format("%s : %s",
-                    I18nService.get("invoice.footer.capital", locale),
+                    I18nService.getText("invoice.footer.capital", locale),
                     new AmountFormat(locale, currency).format(provider.getShareCapital()))));
             firstElement = false;
         }
@@ -60,13 +59,13 @@ public class InvoiceFooter extends Paragraph {
         if (Objects.nonNull(provider.getVariousIdentificationNumbers())) {
             for (IdentificationNumber identificationNumbers : provider.getVariousIdentificationNumbers()) {
                 if (!firstElement) {
-                    add(new Text(String.format(" %s ", I18nService.get("common.operator.separator", locale))));
+                    add(new Text(String.format(" %s ", I18nService.getText("common.operator.separator", locale))));
                 }
                 firstElement = false;
 
                 add(new Text(String.format("%s %s %s",
                         identificationNumbers.getLabel(),
-                        I18nService.get("common.operator.assignment", locale),
+                        I18nService.getText("common.operator.assignment", locale),
                         identificationNumbers.getId())));
             }
         }
@@ -77,9 +76,9 @@ public class InvoiceFooter extends Paragraph {
         if (numberOfPages > 1) {
             add(new Text("\n\n"));
             add(String.format("%s %s%s%s",
-                    I18nService.get("invoice.footer.page", locale),
+                    I18nService.getText("invoice.footer.page", locale),
                     pdfDocument.getPageNumber(pdfPage),
-                    I18nService.get("common.operator.ratio", locale),
+                    I18nService.getText("common.operator.ratio", locale),
                     numberOfPages));
         }
     }

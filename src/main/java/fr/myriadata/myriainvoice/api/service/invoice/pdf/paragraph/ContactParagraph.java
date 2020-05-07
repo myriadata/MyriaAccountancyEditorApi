@@ -23,26 +23,26 @@ public class ContactParagraph extends Paragraph {
                     Objects.nonNull(contact.getLandlinePhoneNumber()) ||
                     Objects.nonNull(contact.getMobilePhoneNumber())) {
                 add(new BoldText(String.format("%s %s \n",
-                        I18nService.get("invoice.header.contact", locale),
-                        I18nService.get("common.operator.assignment", locale))));
+                        I18nService.getText("invoice.header.contact", locale),
+                        I18nService.getText("common.operator.assignment", locale))));
             }
 
             Consumer<String> addToParagraph = s -> add(new Text(String.format("%s\n", s)));
             Optional.ofNullable(contact.getName()).ifPresent(addToParagraph);
             Optional.ofNullable(contact.getEmail()).ifPresent(s -> addToParagraph.accept(
                     String.format("%s %s %s",
-                            I18nService.get("common.email", locale),
-                            I18nService.get("common.operator.assignment", locale),
+                            I18nService.getText("common.email", locale),
+                            I18nService.getText("common.operator.assignment", locale),
                             s)));
             Optional.ofNullable(contact.getLandlinePhoneNumber()).ifPresent(s -> addToParagraph.accept(
                     String.format("%s %s %s",
-                            I18nService.get("common.phone", locale),
-                            I18nService.get("common.operator.assignment", locale),
+                            I18nService.getText("common.phone", locale),
+                            I18nService.getText("common.operator.assignment", locale),
                             s)));
             Optional.ofNullable(contact.getMobilePhoneNumber()).ifPresent(s -> addToParagraph.accept(
                     String.format("%s %s %s",
-                            I18nService.get("common.mobile", locale),
-                            I18nService.get("common.operator.assignment", locale),
+                            I18nService.getText("common.mobile", locale),
+                            I18nService.getText("common.operator.assignment", locale),
                             s)));
         }
 

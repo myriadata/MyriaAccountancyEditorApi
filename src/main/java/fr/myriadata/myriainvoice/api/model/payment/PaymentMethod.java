@@ -11,7 +11,7 @@ public enum PaymentMethod {
     TRANSFER;
 
     public String getLabel(Locale locale) {
-        return I18nService.get("invoice.payment.method." + this.name().toLowerCase(), locale);
+        return I18nService.getText("invoice.payment.method." + this.name().toLowerCase(), locale);
     }
 
 }

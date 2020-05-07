@@ -32,14 +32,14 @@ public class OrderDiv extends Div {
             Paragraph orderIdParagraph = new Paragraph().setMultipliedLeading(1);
             if (Objects.nonNull(order.getNumber())) {
                 orderIdParagraph.add(new ObliqueText(String.format("%s %s %s\n",
-                        I18nService.get("invoice.order.number", locale),
-                        I18nService.get("common.operator.assignment", locale),
+                        I18nService.getText("invoice.order.number", locale),
+                        I18nService.getText("common.operator.assignment", locale),
                         order.getNumber())));
             }
             if (Objects.nonNull(order.getCustomerReference())) {
                 orderIdParagraph.add(new ObliqueText(String.format("%s %s %s",
-                        I18nService.get("invoice.order.reference", locale),
-                        I18nService.get("common.operator.assignment", locale),
+                        I18nService.getText("invoice.order.reference", locale),
+                        I18nService.getText("common.operator.assignment", locale),
                         order.getCustomerReference())));
             }
             if (!orderIdParagraph.isEmpty()) {
@@ -64,10 +64,10 @@ public class OrderDiv extends Div {
                 new UnitValue(UnitValue.createPercentValue(15f)),
         }).setWidth(new UnitValue(UnitValue.PERCENT, 100));
 
-        table.addHeaderCell(new HeaderCell(I18nService.get("invoice.order.line.description", locale)).setTextAlignment(TextAlignment.LEFT))
-                .addHeaderCell(new HeaderCell(I18nService.get("invoice.order.line.quantity", locale)))
-                .addHeaderCell(new HeaderCell(I18nService.get("invoice.order.line.price", locale)))
-                .addHeaderCell(new HeaderCell(I18nService.get("invoice.order.line.amount", locale)));
+        table.addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.description", locale)).setTextAlignment(TextAlignment.LEFT))
+                .addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.quantity", locale)))
+                .addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.price", locale)))
+                .addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.amount", locale)));
 
         for (OrderLine line : lines) {
             table.addCell(new BorderedCell().add(new NullableParagraph(line.getDescription())));

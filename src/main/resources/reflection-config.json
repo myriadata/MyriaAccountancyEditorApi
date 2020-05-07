@@ -1,0 +1,20 @@
+[
+  {
+    "name" : "java.math.BigDecimal",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },{
+    "name" : "fr.myriadata.myriainvoice.api.service.invoice.pdf.div.MethodPaymentInstructionsDiv",
+    "allPublicConstructors" : true
+  },{
+    "name" : "fr.myriadata.myriainvoice.api.service.invoice.pdf.div.ChequePaymentInstructionsDiv",
+    "allPublicConstructors" : true
+  },{
+    "name" : "fr.myriadata.myriainvoice.api.service.invoice.pdf.div.TransferPaymentInstructionsDiv",
+    "allPublicConstructors" : true
+  }
+]

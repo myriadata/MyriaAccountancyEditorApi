@@ -19,24 +19,24 @@ public class TransferPaymentInstructionsDiv extends MethodPaymentInstructionsDiv
 
             if (Objects.nonNull(paymentInstructions.getTransferPaymentInstructions().getReference())) {
                 paragraph.add(String.format("%s %s %s\n",
-                        I18nService.get("invoice.payment.method.transfer.reference", locale),
-                        I18nService.get("common.operator.assignment", locale),
+                        I18nService.getText("invoice.payment.method.transfer.reference", locale),
+                        I18nService.getText("common.operator.assignment", locale),
                         paymentInstructions.getTransferPaymentInstructions().getReference()));
             }
 
             paragraph.add(String.format("%s %s %s\n",
-                    I18nService.get("invoice.payment.method.transfer.bank", locale),
-                    I18nService.get("common.operator.assignment", locale),
+                    I18nService.getText("invoice.payment.method.transfer.bank", locale),
+                    I18nService.getText("common.operator.assignment", locale),
                     paymentInstructions.getTransferPaymentInstructions().getBankName()));
 
             paragraph.add(String.format("%s %s %s\n",
-                    I18nService.get("invoice.payment.method.transfer.iban", locale),
-                    I18nService.get("common.operator.assignment", locale),
+                    I18nService.getText("invoice.payment.method.transfer.iban", locale),
+                    I18nService.getText("common.operator.assignment", locale),
                     paymentInstructions.getTransferPaymentInstructions().getIban()));
 
             paragraph.add(String.format("%s %s %s\n",
-                    I18nService.get("invoice.payment.method.transfer.bic", locale),
-                    I18nService.get("common.operator.assignment", locale),
+                    I18nService.getText("invoice.payment.method.transfer.bic", locale),
+                    I18nService.getText("common.operator.assignment", locale),
                     paymentInstructions.getTransferPaymentInstructions().getBic()));
 
             add(paragraph);

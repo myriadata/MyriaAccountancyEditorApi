@@ -1,0 +1,7 @@
+{
+  "resources" : [
+    { "pattern": "com/itextpdf/io/font/afm/Helvetica.afm" },
+    { "pattern": "com/itextpdf/io/font/afm/Helvetica-Bold.afm" },
+    { "pattern": "com/itextpdf/io/font/afm/Helvetica-Oblique.afm" }
+  ]
+}

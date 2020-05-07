@@ -1,5 +1,7 @@
 package fr.myriadata.myriainvoice.api.service.invoice.pdf.format;
 
+import fr.myriadata.myriainvoice.api.service.i18n.I18nService;
+
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Currency;
@@ -10,19 +12,21 @@ public class AmountFormat {
     private NumberFormat numberFormat;
 
     public AmountFormat(Locale locale) {
-        this.numberFormat = NumberFormat.getNumberInstance(locale);
-        setFractionDigits(2);
+        this.numberFormat = I18nService.getNumberFormat(locale);
+        this.numberFormat.setMinimumFractionDigits(2);
+        this.numberFormat.setMaximumFractionDigits(2);
     }
 
     public AmountFormat(Locale locale, int fractionDigits) {
         this(locale);
-        setFractionDigits(fractionDigits);
+        this.numberFormat.setMinimumFractionDigits(fractionDigits);
+        this.numberFormat.setMaximumFractionDigits(fractionDigits);
     }
 
     public AmountFormat(Locale locale, Currency currency) {
-        this.numberFormat = NumberFormat.getCurrencyInstance(locale);
-        this.numberFormat.setCurrency(currency);
-        setFractionDigits(2);
+        this.numberFormat = I18nService.getCurrencyFormat(locale, currency);
+        this.numberFormat.setMinimumFractionDigits(2);
+        this.numberFormat.setMaximumFractionDigits(2);
     }
 
     public String format(BigDecimal amount) {
@@ -33,10 +37,4 @@ public class AmountFormat {
         return numberFormat.format(amount);
     }
 
-
-
-    private void setFractionDigits(int fractionDigits) {
-        this.numberFormat.setMinimumFractionDigits(fractionDigits);
-        this.numberFormat.setMaximumFractionDigits(fractionDigits);
-    }
 }

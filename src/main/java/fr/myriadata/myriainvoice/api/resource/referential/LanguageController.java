@@ -1,25 +1,24 @@
 package fr.myriadata.myriainvoice.api.resource.referential;
 
-import fr.myriadata.myriainvoice.api.service.referential.CurrencyService;
+import fr.myriadata.myriainvoice.api.service.referential.LanguageService;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.Currency;
 import java.util.List;
 
-@Path("/v1/currencies")
-public class CurrencyController {
+@Path("/v1/languages")
+public class LanguageController {
 
     @Inject
-    CurrencyService currencyService;
+    LanguageService languageService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Currency> get() {
-        return currencyService.get();
+    public List<String> get() {
+        return languageService.get();
     }
 
 }

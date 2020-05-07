@@ -52,11 +52,11 @@ public class PaymentInstructionsDiv extends Div {
                 new UnitValue(UnitValue.createPercentValue(40f))
         }).setWidth(new UnitValue(UnitValue.PERCENT, 100f))
           .setBackgroundColor(ColorConstants.LIGHT_GRAY, .6f);
-        paymentTable.addCell(new BorderedCell().add(new Paragraph(new BoldText(I18nService.get("invoice.payment.payable", locale)))));
+        paymentTable.addCell(new BorderedCell().add(new Paragraph(new BoldText(I18nService.getText("invoice.payment.payable", locale)))));
         paymentTable.addCell(new AmountCell(paymentInstructions.getAmount(), locale, currency)
                 .setTextAlignment(TextAlignment.CENTER)
                 .setPadding(2f));
-        paymentTable.addCell(new BorderedCell().add(new Paragraph(new BoldText(I18nService.get("invoice.payment.date", locale)))));
+        paymentTable.addCell(new BorderedCell().add(new Paragraph(new BoldText(I18nService.getText("invoice.payment.date", locale)))));
         paymentTable.addCell(new BorderedCell().add(new Paragraph(new DateFormat(locale).format(paymentInstructions.getDueDate())))
                 .setTextAlignment(TextAlignment.CENTER)
                 .setPadding(2f));
@@ -80,8 +80,8 @@ public class PaymentInstructionsDiv extends Div {
 
         Div methodContents = new Div();
         methodContents.add(new Paragraph(String.format("%s %s",
-                I18nService.get("invoice.payment.method" + (paymentMethods.size() >= 2 ? "s" : ""), locale),
-                I18nService.get("common.operator.assignment", locale))));
+                I18nService.getText("invoice.payment.method" + (paymentMethods.size() >= 2 ? "s" : ""), locale),
+                I18nService.getText("common.operator.assignment", locale))));
         methodContents.add(new FlexboxTable(numColumns(paymentInstructions), paymentMethods));
         return methodContents;
     }

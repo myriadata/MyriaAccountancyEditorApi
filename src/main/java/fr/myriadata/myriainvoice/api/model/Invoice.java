@@ -1,7 +1,7 @@
 package fr.myriadata.myriainvoice.api.model;
 
-import fr.myriadata.myriainvoice.api.model.party.Customer;
 import fr.myriadata.myriainvoice.api.model.order.Order;
+import fr.myriadata.myriainvoice.api.model.party.Customer;
 import fr.myriadata.myriainvoice.api.model.party.Provider;
 import fr.myriadata.myriainvoice.api.model.payment.PaymentInstructions;
 import fr.myriadata.myriainvoice.api.model.tax.ConsolidatedTaxes;

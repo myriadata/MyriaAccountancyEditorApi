@@ -71,6 +71,13 @@
             <type>pom</type>
         </dependency>
 
+        <!-- Native image -->
+        <dependency>
+            <groupId>org.graalvm.nativeimage</groupId>
+            <artifactId>svm</artifactId>
+            <version>19.3.1</version>
+        </dependency>
+
         <!-- TEST -->
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -117,5 +124,18 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>native</id>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+                <quarkus.native.additional-build-args>
+                    -H:ReflectionConfigurationFiles=reflection-config.json,
+                    -H:ResourceConfigurationFiles=resources-config.json
+                </quarkus.native.additional-build-args>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

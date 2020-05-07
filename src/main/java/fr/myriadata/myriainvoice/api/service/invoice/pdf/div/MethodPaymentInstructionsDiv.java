@@ -14,8 +14,7 @@ public class MethodPaymentInstructionsDiv extends Div {
         and this call give this two parameters.
      */
     public MethodPaymentInstructionsDiv(PaymentMethod paymentMethod, PaymentInstructions paymentInstructions, Locale locale) {
-        add(new Paragraph().setMultipliedLeading(1)
-                .add(" - " + paymentMethod.getLabel(locale)));
+        add(new Paragraph().setMultipliedLeading(1).add(" - " + paymentMethod.getLabel(locale)));
     }
 
 }

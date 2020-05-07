@@ -17,8 +17,8 @@ public class ChequePaymentInstructionsDiv extends MethodPaymentInstructionsDiv {
             if (Objects.nonNull(paymentInstructions.getChequePaymentInstructions().getPayee())) {
                 add(new Paragraph().setMultipliedLeading(1)
                         .add(String.format("%s %s %s",
-                                I18nService.get("invoice.payment.method.cheque.recipient", locale),
-                                I18nService.get("common.operator.assignment", locale),
+                                I18nService.getText("invoice.payment.method.cheque.recipient", locale),
+                                I18nService.getText("common.operator.assignment", locale),
                                 paymentInstructions.getChequePaymentInstructions().getPayee() + "\n")));
             }
         }

@@ -45,10 +45,10 @@ public class TaxDiv extends Div {
                 new UnitValue(UnitValue.createPercentValue(28f))
         }).setWidth(new UnitValue(UnitValue.PERCENT, 100));
 
-        table.addHeaderCell(new HeaderCell(I18nService.get("invoice.tax.vat", locale)))
-                .addHeaderCell(new HeaderCell(I18nService.get("invoice.tax.amount.base", locale)))
-                .addHeaderCell(new HeaderCell(I18nService.get("invoice.tax.amount.vat", locale)))
-                .addHeaderCell(new HeaderCell(I18nService.get("invoice.tax.amount.total", locale)));
+        table.addHeaderCell(new HeaderCell(I18nService.getText("invoice.tax.vat", locale)))
+                .addHeaderCell(new HeaderCell(I18nService.getText("invoice.tax.amount.base", locale)))
+                .addHeaderCell(new HeaderCell(I18nService.getText("invoice.tax.amount.vat", locale)))
+                .addHeaderCell(new HeaderCell(I18nService.getText("invoice.tax.amount.total", locale)));
 
         for (Map.Entry<BigDecimal, ValueAddedTax> valueAddedTaxByAmount : consolidatedTaxesByAmount.entrySet()) {
             table.addCell(new BorderedCell().add(new Paragraph(new AmountFormat(locale,

@@ -55,3 +55,24 @@ Subject is require and has to be shorter than 50 caracters. It is an overview of
 ###
 
 Body is optional, it can be multiline, and it is not size limited.
+
+## Build
+
+Quarkus allow to build project in native mode to improve boot time, first response time and memory print.
+
+### Prerequisites
+
+- GraalVM
+
+### Native mode
+
+```
+mvn clean package -Pnative
+```
+
+### Executable
+
+```
+./target/MyriaInvoiceApi-{{version}}-runner
+```
+

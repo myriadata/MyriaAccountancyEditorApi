@@ -16,6 +16,7 @@ public class AllowedLocaleValidatorTest {
 
     @Test
     public void should() {
+        shouldNotValidate(null);
         shouldNotValidate(new Locale(""));
         shouldNotValidate(new Locale("de"));
         shouldNotValidate(new Locale("fr", "GROLAND"));

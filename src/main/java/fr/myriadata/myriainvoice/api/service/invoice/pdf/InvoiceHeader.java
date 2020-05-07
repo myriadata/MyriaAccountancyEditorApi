@@ -70,10 +70,10 @@ public class InvoiceHeader extends Div {
             new Paragraph()
                 .setTextAlignment(TextAlignment.RIGHT)
                 .add(new BoldText(String.format("%s %s\n",
-                        I18nService.get("common.invoice", invoice.getLocale()),
+                        I18nService.getText("common.invoice", invoice.getLocale()),
                         invoice.getNumber())).setFontSize(PdfConstants.TITLE_FONT_SIZE))
                 .add(new Text(String.format("%s : %s\n",
-                        I18nService.get("invoice.header.date", invoice.getLocale()),
+                        I18nService.getText("invoice.header.date", invoice.getLocale()),
                         new DateFormat(invoice.getLocale()).format(invoice.getDate()))))
         );
         return idDiv;
@@ -87,7 +87,7 @@ public class InvoiceHeader extends Div {
 
     private Div customerDiv(Invoice invoice) throws IOException {
         Paragraph toParagraph = new Paragraph();
-        toParagraph.add(I18nService.get("invoice.header.recipient", invoice.getLocale()) + " ");
+        toParagraph.add(I18nService.getText("invoice.header.recipient", invoice.getLocale()) + " ");
         if (Objects.nonNull(invoice.getCustomer().getRecipient())) {
             toParagraph.add(invoice.getCustomer().getRecipient());
         }
