@@ -19,6 +19,8 @@ mvn versions:display-dependency-updates
 A lot of dependencies in Dependency Managment can't be directly upgrade because it manage mainly by quarkus.
 But you can easily upgrade dependencies in Dependencies at the end of the command result.
 
+If you upgrade GraalVM or Java version, you have to update docker based image used in CircleCI configuration.
+
 ## Commits
 
 ### Commit Message Format
@@ -76,3 +78,25 @@ mvn clean package -Pnative
 ./target/MyriaInvoiceApi-{{version}}-runner
 ```
 
+## CI/CD
+
+CircleCI configuration is made up two jobs :
+- build
+- containerize
+
+For each commit pushed in develop branch a build job is trigger. Contenainerize job is only for master branch. Contenairize job require build job.
+
+### Build job
+
+Checkout projet and build it natively. Executable and Dockerfile is store on workspace to eventually be used by other jobs. This build run unit tests.
+
+### Containerize job
+
+Create docker image from builded executable and Dockerfile. Docker image is versioned and push to DockerHub registry.
+https://hub.docker.com/r/myriadata/myria-invoice-api.
+
+### Run application in docker mode
+
+```
+docker run --rm -p 8080:8080 myriadata/myria-invoice-api:latest
+```

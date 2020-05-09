@@ -1,0 +1,56 @@
+version: 2
+jobs:
+
+  build:
+    docker:
+      - image: quay.io/quarkus/centos-quarkus-maven:20.0.0-java11
+    resource_class: xlarge
+    working_directory: ~/workspace
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+      - run:
+          name: Native build
+          command: mvn clean package -Pnative
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+      - persist_to_workspace:
+          root: ~/workspace
+          paths:
+            - src/main/docker
+            - target
+
+  containerize:
+    docker:
+      - image: docker:19.03.8
+    working_directory: ~/workspace
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: Docker build, tag & push
+          command: |
+            APP_VERSION=$(grep version target/maven-archiver/pom.properties | cut -d'=' -f2)
+            docker build -f src/main/docker/Dockerfile -t myriadata/myria-invoice-api:$APP_VERSION .
+            docker tag myriadata/myria-invoice-api:$APP_VERSION myriadata/myria-invoice-api:latest
+            echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+            docker push myriadata/myria-invoice-api:$APP_VERSION
+            docker push myriadata/myria-invoice-api:latest
+
+workflows:
+  version: 2
+  build-containerize:
+    jobs:
+      - build
+      - containerize:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
