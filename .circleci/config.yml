@@ -3,7 +3,7 @@ jobs:
 
   build:
     docker:
-      - image: quay.io/quarkus/centos-quarkus-maven:20.0.0-java11
+      - image: quay.io/quarkus/centos-quarkus-maven:20.1.0-java11
     resource_class: xlarge
     working_directory: ~/workspace
     steps:

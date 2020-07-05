@@ -18,9 +18,10 @@
         <maven.compiler.target>11</maven.compiler.target>
 
         <maven.plugin.jandex>1.0.7</maven.plugin.jandex>
-        <maven.plugin.surefire>2.22.1</maven.plugin.surefire>
+        <maven.plugin.surefire>3.0.0-M5</maven.plugin.surefire>
 
-        <quarkus.version>1.3.2.Final</quarkus.version>
+        <quarkus.version>1.5.0.Final</quarkus.version>
+        <graalvm-svm.version>20.1.0</graalvm-svm.version>
         <lombok.version>1.18.12</lombok.version>
         <itext.version>7.1.11</itext.version>
     </properties>
@@ -75,13 +76,18 @@
         <dependency>
             <groupId>org.graalvm.nativeimage</groupId>
             <artifactId>svm</artifactId>
-            <version>19.3.1</version>
+            <version>${graalvm-svm.version}</version>
         </dependency>
 
         <!-- TEST -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -117,9 +123,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.plugin.surefire}</version>
                 <configuration>
-                    <systemProperties>
+                    <systemPropertyVariables>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                    </systemProperties>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
