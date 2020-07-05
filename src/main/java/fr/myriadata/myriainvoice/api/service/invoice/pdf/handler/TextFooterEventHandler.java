@@ -37,7 +37,7 @@ public class TextFooterEventHandler implements IEventHandler {
         PdfCanvas pdfCanvas = new PdfCanvas(pdfPage);
 
         pageSize.setY(pdfDocument.getNumberOfPages() > 1 ? -785 : -790);
-        Canvas canvas = new Canvas(pdfCanvas, pdfDocument, pageSize);
+        Canvas canvas = new Canvas(pdfCanvas, pageSize);
         canvas.add(new InvoiceFooter(provider, locale, currency, pdfDocument, pdfPage));
     }
 
