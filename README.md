@@ -54,7 +54,7 @@ Scope is to provide the context. Actual contexts are :
 
 Subject is require and has to be shorter than 50 caracters. It is an overview of what commit doing.
 
-###
+### Body
 
 Body is optional, it can be multiline, and it is not size limited.
 
@@ -96,6 +96,8 @@ Create docker image from builded executable and Dockerfile. Docker image is vers
 https://hub.docker.com/r/myriadata/myria-invoice-api.
 
 ### Run application in docker mode
+
+Launch application from last binary available on docker hub registry : 
 
 ```
 docker run --rm -p 8080:8080 myriadata/myria-invoice-api:latest
