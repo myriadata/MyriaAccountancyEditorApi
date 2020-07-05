@@ -2,27 +2,20 @@ package fr.myriadata.myriainvoice.api.service.invoice.pdf.format;
 
 import fr.myriadata.myriainvoice.api.service.i18n.I18nService;
 
-import java.text.DateFormatSymbols;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class DateFormat {
 
-    private DateFormatSymbols dateFormatSymbols;
+    private DateTimeFormatter dateFormatter;
 
     public DateFormat(Locale locale) {
-        this.dateFormatSymbols = I18nService.getDateFormatSymbols(locale);
+        this.dateFormatter = I18nService.getDateFormatter(locale);
     }
 
     public String format(LocalDate date) {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(date.getDayOfMonth());
-        stringBuffer.append(" ");
-        stringBuffer.append(dateFormatSymbols.getShortMonths()[date.getMonthValue() - 1]);
-        stringBuffer.append(" ");
-        stringBuffer.append(date.getYear());
-
-        return stringBuffer.toString();
+        return dateFormatter.format(date);
     }
 
 }

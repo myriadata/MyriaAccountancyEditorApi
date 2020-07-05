@@ -1,12 +1,13 @@
 package fr.myriadata.myriainvoice.api.service.i18n;
 
-import fr.myriadata.myriainvoice.api.conf.graalvm.formatter.DateFormatSymbolsSupport;
+import fr.myriadata.myriainvoice.api.conf.graalvm.formatter.DateFormatterSupport;
 import fr.myriadata.myriainvoice.api.conf.graalvm.formatter.NumberFormatSupport;
 import fr.myriadata.myriainvoice.api.conf.graalvm.i18n.ResourceBundleSupport;
 import org.graalvm.nativeimage.ImageSingletons;
 
-import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -39,10 +40,10 @@ public class I18nService {
         return numberFormat;
     }
 
-    public static DateFormatSymbols getDateFormatSymbols(Locale locale) {
-        return ImageSingletons.contains(DateFormatSymbolsSupport.class)
-                ? ImageSingletons.lookup(DateFormatSymbolsSupport.class).get(locale)
-                : DateFormatSymbols.getInstance(locale);
+    public static DateTimeFormatter getDateFormatter(Locale locale) {
+        return ImageSingletons.contains(DateFormatterSupport.class)
+                ? ImageSingletons.lookup(DateFormatterSupport.class).get(locale)
+                : DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale);
     }
 
 }

@@ -1,6 +1,5 @@
 package fr.myriadata.myriainvoice.api.service.invoice.pdf.format;
 
-import fr.myriadata.myriainvoice.api.service.invoice.pdf.format.DateFormat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +31,7 @@ public class DateFormatTest {
 
         // THEN
         Assertions.assertNotNull(date);
-        Assertions.assertEquals("25 Jul 2019", date);
+        Assertions.assertEquals("Jul 25, 2019", date);
     }
 
 }
