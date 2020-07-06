@@ -3,4 +3,4 @@ WORKDIR /work/
 COPY target/MyriaInvoiceApi-*-runner runner
 RUN chmod 775 /work
 EXPOSE 8080
-CMD ["./runner", "-Dquarkus.http.host=0.0.0.0"]
+ENTRYPOINT ["./runner", "-Dquarkus.http.host=0.0.0.0"]
