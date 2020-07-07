@@ -6,7 +6,7 @@
 
     <groupId>fr.myriadata.myriainvoice.api</groupId>
     <artifactId>MyriaInvoiceApi</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <name>MyriaInvoiceApi</name>
     <description>API REST - Invoice PDF generation</description>
