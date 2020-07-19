@@ -43,6 +43,25 @@ jobs:
             docker push myriadata/myria-invoice-api:$APP_VERSION
             docker push myriadata/myria-invoice-api:latest
 
+  deploy:
+    docker:
+      - image: circleci/node:14.5.0
+    working_directory: ~/workspace
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "83:3d:06:66:02:95:95:18:d2:5a:11:45:24:7e:27:eb"
+      - run:
+          name: Deploy the latest image from dockerhub
+          command: |
+            git clone git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/$CLEVER_APP_NAME.git
+            npm install -g baconjs@3.0.10
+            npm install -g clever-tools@2.6.1
+            docker login
+            cd $CLEVER_APP_NAME
+            docker link $CLEVER_APP_NAME
+            clever restart --without-cache
+
 workflows:
   version: 2
   build-containerize:
@@ -51,6 +70,12 @@ workflows:
       - containerize:
           requires:
             - build
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - containerize
           filters:
             branches:
               only: master
