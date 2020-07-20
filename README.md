@@ -20,6 +20,7 @@ A lot of dependencies in Dependency Managment can't be directly upgrade because 
 But you can easily upgrade dependencies in Dependencies at the end of the command result.
 
 If you upgrade GraalVM or Java version, you have to update docker based image used in CircleCI configuration.
+Deploy job use clever-tools and baconjs dependency that can be upgraded too. 
 
 ## Commits
 
