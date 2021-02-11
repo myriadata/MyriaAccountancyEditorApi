@@ -3,7 +3,7 @@ jobs:
 
   build:
     docker:
-      - image: quay.io/quarkus/centos-quarkus-maven:20.1.0-java11
+      - image: quay.io/quarkus/centos-quarkus-maven:21.0.0-java11
     resource_class: xlarge
     working_directory: ~/workspace
     steps:
@@ -27,7 +27,7 @@ jobs:
 
   containerize:
     docker:
-      - image: docker:19.03.8
+      - image: docker:20.10.2
     working_directory: ~/workspace
     steps:
       - setup_remote_docker
@@ -45,14 +45,15 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/node:14.5.0
+      - image: circleci/node:14.15.5
     working_directory: ~/workspace
     steps:
       - run:
           name: Deploy the latest image from dockerhub to production
           command: |
             npm install --prefix=$HOME/.local --global baconjs@0.7.83
-            npm install --prefix=$HOME/.local --global clever-tools@2.6.1
+            npm install --prefix=$HOME/.local --global superagent@5.1.0
+            npm install --prefix=$HOME/.local --global clever-tools@2.8.0
             clever login --token $CLEVER_TOKEN --secret $CLEVER_SECRET
             clever link $CLEVER_APP_NAME
             clever restart --without-cache
