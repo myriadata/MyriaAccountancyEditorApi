@@ -69,6 +69,15 @@ Quarkus allow to build project in native mode to improve boot time, first respon
 
 ### Native mode
 
+You before need to install native-image if not done :
+
+```
+export PATH="$GRAALVM_HOME"/bin:"$PATH"
+gu install native-image
+```
+
+Then build with native profile :
+
 ```
 mvn clean package -Pnative
 ```
