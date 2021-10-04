@@ -20,10 +20,10 @@
         <maven.plugin.jandex>1.0.7</maven.plugin.jandex>
         <maven.plugin.surefire>3.0.0-M5</maven.plugin.surefire>
 
-        <quarkus.version>1.11.1.Final</quarkus.version>
-        <graalvm-svm.version>21.0.0</graalvm-svm.version>
-        <lombok.version>1.18.18</lombok.version>
-        <itext.version>7.1.14</itext.version>
+        <quarkus.version>2.3.0.Final</quarkus.version>
+        <graalvm-svm.version>21.1.0</graalvm-svm.version>
+        <lombok.version>1.18.20</lombok.version>
+        <itext.version>7.1.16</itext.version>
     </properties>
 
     <dependencyManagement>
