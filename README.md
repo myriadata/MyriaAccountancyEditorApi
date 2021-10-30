@@ -1,5 +1,5 @@
-# MyriaInvoiceApi
-API REST - Invoice PDF generation
+# MyriaAccountancyEditorApi
+API REST - Accountancy documents PDF generation
 
 ## Develop
 
@@ -70,14 +70,17 @@ Quarkus allow to build project in native mode to improve boot time, first respon
 ### Native mode
 
 You before need to install native-image if not done :
-
 ```
 export PATH="$GRAALVM_HOME"/bin:"$PATH"
 gu install native-image
 ```
 
-Then build with native profile :
+On OsX, GraalVM can be damaged, that's mean to authorize it :
+```
+sudo xattr -r -d com.apple.quarantine /Library/Java/JavaVirtualMachines/{{graalvm-folder}}
+```
 
+Then build with native profile :
 ```
 mvn clean package -Pnative
 ```
@@ -85,7 +88,7 @@ mvn clean package -Pnative
 ### Executable
 
 ```
-./target/MyriaInvoiceApi-{{version}}-runner
+./target/MyriaAccountancyEditorApi-{{version}}-runner
 ```
 
 ## CI/CD
@@ -103,12 +106,12 @@ Checkout projet and build it natively. Executable and Dockerfile is store on wor
 ### Containerize job
 
 Create docker image from builded executable and Dockerfile. Docker image is versioned and push to DockerHub registry.
-https://hub.docker.com/r/myriadata/myria-invoice-api.
+https://hub.docker.com/r/myriadata/myria-accountancy-editor-api.
 
 ### Run application in docker mode
 
 Launch application from last binary available on docker hub registry : 
 
 ```
-docker run --rm -p 8080:8080 myriadata/myria-invoice-api:latest
+docker run --rm -p 8080:8080 myriadata/myria-accountancy-editor-api:latest
 ```
