@@ -37,11 +37,11 @@ jobs:
           name: Docker build, tag & push
           command: |
             APP_VERSION=$(grep version target/maven-archiver/pom.properties | cut -d'=' -f2)
-            docker build -f src/main/docker/Dockerfile -t myriadata/myria-invoice-api:$APP_VERSION .
-            docker tag myriadata/myria-invoice-api:$APP_VERSION myriadata/myria-invoice-api:latest
+            docker build -f src/main/docker/Dockerfile -t myriadata/myria-accountancy-editor-api:$APP_VERSION .
+            docker tag myriadata/myria-accountancy-editor-api:$APP_VERSION myriadata/myria-accountancy-editor-api:latest
             echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-            docker push myriadata/myria-invoice-api:$APP_VERSION
-            docker push myriadata/myria-invoice-api:latest
+            docker push myriadata/myria-accountancy-editor-api:$APP_VERSION
+            docker push myriadata/myria-accountancy-editor-api:latest
 
   deploy:
     docker:

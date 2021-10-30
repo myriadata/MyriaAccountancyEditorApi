@@ -8,13 +8,13 @@
     "allDeclaredFields" : true,
     "allPublicFields" : true
   },{
-    "name" : "fr.myriadata.myriainvoice.api.service.invoice.pdf.div.MethodPaymentInstructionsDiv",
+    "name" : "fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.div.MethodPaymentInstructionsDiv",
     "allPublicConstructors" : true
   },{
-    "name" : "fr.myriadata.myriainvoice.api.service.invoice.pdf.div.ChequePaymentInstructionsDiv",
+    "name" : "fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.div.ChequePaymentInstructionsDiv",
     "allPublicConstructors" : true
   },{
-    "name" : "fr.myriadata.myriainvoice.api.service.invoice.pdf.div.TransferPaymentInstructionsDiv",
+    "name" : "fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.div.TransferPaymentInstructionsDiv",
     "allPublicConstructors" : true
   }
 ]
