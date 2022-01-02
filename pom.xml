@@ -6,7 +6,7 @@
 
     <groupId>fr.myriadata.myriaaccountancyeditor.api</groupId>
     <artifactId>MyriaAccountancyEditorApi</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 
     <name>MyriaAccountancyEditorApi</name>
     <description>API REST - Accountancy documents PDF generation</description>
@@ -20,10 +20,10 @@
         <maven.plugin.jandex>1.0.7</maven.plugin.jandex>
         <maven.plugin.surefire>3.0.0-M5</maven.plugin.surefire>
 
-        <quarkus.version>2.3.0.Final</quarkus.version>
-        <graalvm-svm.version>21.1.0</graalvm-svm.version>
-        <lombok.version>1.18.20</lombok.version>
-        <itext.version>7.1.16</itext.version>
+        <quarkus.version>2.6.1.Final</quarkus.version>
+        <graalvm-svm.version>21.3.0</graalvm-svm.version>
+        <lombok.version>1.18.22</lombok.version>
+        <itext.version>7.2.0</itext.version>
     </properties>
 
     <dependencyManagement>

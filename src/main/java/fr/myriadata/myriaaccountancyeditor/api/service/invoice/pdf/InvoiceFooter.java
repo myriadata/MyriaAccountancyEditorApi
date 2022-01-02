@@ -4,7 +4,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.properties.TextAlignment;
 import fr.myriadata.myriaaccountancyeditor.api.model.party.IdentificationNumber;
 import fr.myriadata.myriaaccountancyeditor.api.model.party.Provider;
 import fr.myriadata.myriaaccountancyeditor.api.service.i18n.I18nService;

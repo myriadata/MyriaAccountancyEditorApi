@@ -3,7 +3,7 @@ package fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.table;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.properties.TextAlignment;
 import fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.text.BoldText;
 
 import java.io.IOException;

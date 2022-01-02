@@ -3,7 +3,7 @@ package fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.table;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.UnitValue;
 
 public class BorderedTable extends Table {
 

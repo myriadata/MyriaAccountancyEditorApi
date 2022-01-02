@@ -2,7 +2,7 @@ package fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.table;
 
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.UnitValue;
+import com.itextpdf.layout.properties.UnitValue;
 
 import java.util.List;
 import java.util.stream.IntStream;
