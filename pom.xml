@@ -6,7 +6,7 @@
 
     <groupId>fr.myriadata.myriaaccountancyeditor.api</groupId>
     <artifactId>MyriaAccountancyEditorApi</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 
     <name>MyriaAccountancyEditorApi</name>
     <description>API REST - Accountancy documents PDF generation</description>
