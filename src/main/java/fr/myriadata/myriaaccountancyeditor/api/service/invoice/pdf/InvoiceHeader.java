@@ -2,7 +2,7 @@ package fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf;
 
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.layout.element.*;
-import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.properties.TextAlignment;
 import fr.myriadata.myriaaccountancyeditor.api.model.Invoice;
 import fr.myriadata.myriaaccountancyeditor.api.service.i18n.I18nService;
 import fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.format.DateFormat;

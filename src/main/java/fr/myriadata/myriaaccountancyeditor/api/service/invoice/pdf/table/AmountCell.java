@@ -1,6 +1,6 @@
 package fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.table;
 
-import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.properties.TextAlignment;
 import fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.format.AmountFormat;
 import fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.paragraph.NullableParagraph;
 
