@@ -18,7 +18,7 @@ public class LocaleService {
     LanguageService languageService;
 
     public List<Locale> get() {
-        if(ImageSingletons.contains(LocaleSupport.class)){
+        if (ImageSingletons.contains(LocaleSupport.class)){
             return filteredByLanguage(ImageSingletons.lookup(LocaleSupport.class).getAvailableLocales());
         }
 

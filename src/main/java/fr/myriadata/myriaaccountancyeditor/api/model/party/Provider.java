@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -26,7 +25,9 @@ public class Provider {
     private Address address;
 
     private String legalStatus;
-    private BigDecimal shareCapital;
+
+    @Valid
+    private ShareCapital shareCapital;
 
     @Valid
     private List<IdentificationNumber> variousIdentificationNumbers;
