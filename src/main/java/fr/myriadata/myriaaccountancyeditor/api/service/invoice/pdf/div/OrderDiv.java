@@ -18,10 +18,7 @@ import fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.table.HeaderC
 import fr.myriadata.myriaaccountancyeditor.api.service.invoice.pdf.text.ObliqueText;
 
 import java.io.IOException;
-import java.util.Currency;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 public class OrderDiv extends Div {
 
@@ -57,26 +54,43 @@ public class OrderDiv extends Div {
     }
 
     private Table orderLines(List<OrderLine> lines, Locale locale, Currency currency) throws IOException {
-        Table table = new BorderedTable(new UnitValue[] {
-                new UnitValue(UnitValue.createPercentValue(56f)),
-                new UnitValue(UnitValue.createPercentValue(10f)),
-                new UnitValue(UnitValue.createPercentValue(10f)),
-                new UnitValue(UnitValue.createPercentValue(12f)),
-                new UnitValue(UnitValue.createPercentValue(12f)),
-        }).setWidth(new UnitValue(UnitValue.PERCENT, 100));
+        boolean hasUnit = lines.stream().anyMatch(l -> l.getUnit() != null && !l.getUnit().isBlank());
+        boolean hasQuantity = lines.stream().anyMatch(l -> l.getQuantity() != null);
+        boolean hasPrice = lines.stream().anyMatch(l -> l.getUnitPrice() != null);
+        boolean hasAmount = lines.stream().anyMatch(l -> l.getAmount() != null);
 
-        table.addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.description", locale)).setTextAlignment(TextAlignment.LEFT))
-                .addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.unit", locale)))
-                .addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.quantity", locale)))
-                .addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.price", locale)))
-                .addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.amount", locale)));
+        Integer unitColumnSize = 10;
+        Integer quantityColumnSize = 10;
+        Integer priceColumnSize = 12;
+        Integer amountColumnSize = 12;
+
+        Integer columnDescriptionSize = 100;
+        columnDescriptionSize -= hasUnit ? unitColumnSize : 0;
+        columnDescriptionSize -= hasQuantity ? quantityColumnSize : 0;
+        columnDescriptionSize -= hasPrice ? priceColumnSize : 0;
+        columnDescriptionSize -= hasAmount ? amountColumnSize : 0;
+
+        List<UnitValue> columns = new ArrayList<>();
+        columns.add(new UnitValue(UnitValue.createPercentValue(columnDescriptionSize)));
+        if (hasUnit) columns.add(new UnitValue(UnitValue.createPercentValue(unitColumnSize)));
+        if (hasQuantity) columns.add(new UnitValue(UnitValue.createPercentValue(quantityColumnSize)));
+        if (hasPrice) columns.add(new UnitValue(UnitValue.createPercentValue(priceColumnSize)));
+        if (hasAmount) columns.add(new UnitValue(UnitValue.createPercentValue(amountColumnSize)));
+
+        Table table = new BorderedTable(columns.toArray(new UnitValue[columns.size()])).setWidth(new UnitValue(UnitValue.PERCENT, 100));
+
+        table.addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.description", locale)).setTextAlignment(TextAlignment.LEFT));
+        if (hasUnit) table.addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.unit", locale)));
+        if (hasQuantity) table.addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.quantity", locale)));
+        if (hasPrice) table.addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.price", locale)));
+        if (hasAmount) table.addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.amount", locale)));
 
         for (OrderLine line : lines) {
             table.addCell(new BorderedCell().add(new NullableParagraph(line.getDescription())));
-            table.addCell(new BorderedCell().add(new NullableParagraph(line.getUnit()).setTextAlignment(TextAlignment.CENTER)));
-            table.addCell(new BorderedCell().add(new NullableParagraph(new AmountFormat(locale).format(line.getQuantity())).setTextAlignment(TextAlignment.RIGHT)));
-            table.addCell(new AmountCell(line.getUnitPrice(), locale, currency));
-            table.addCell(new AmountCell(line.getAmount(), locale, currency));
+            if (hasUnit) table.addCell(new BorderedCell().add(new NullableParagraph(line.getUnit()).setTextAlignment(TextAlignment.CENTER)));
+            if (hasQuantity) table.addCell(new BorderedCell().add(new NullableParagraph(new AmountFormat(locale).format(line.getQuantity())).setTextAlignment(TextAlignment.RIGHT)));
+            if (hasPrice) table.addCell(new AmountCell(line.getUnitPrice(), locale, currency));
+            if (hasAmount) table.addCell(new AmountCell(line.getAmount(), locale, currency));
         }
 
         return table;
