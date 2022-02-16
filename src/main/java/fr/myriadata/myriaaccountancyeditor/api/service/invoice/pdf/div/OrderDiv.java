@@ -58,21 +58,23 @@ public class OrderDiv extends Div {
 
     private Table orderLines(List<OrderLine> lines, Locale locale, Currency currency) throws IOException {
         Table table = new BorderedTable(new UnitValue[] {
-                new UnitValue(UnitValue.createPercentValue(55f)),
-                new UnitValue(UnitValue.createPercentValue(15f)),
-                new UnitValue(UnitValue.createPercentValue(15f)),
-                new UnitValue(UnitValue.createPercentValue(15f)),
+                new UnitValue(UnitValue.createPercentValue(56f)),
+                new UnitValue(UnitValue.createPercentValue(10f)),
+                new UnitValue(UnitValue.createPercentValue(10f)),
+                new UnitValue(UnitValue.createPercentValue(12f)),
+                new UnitValue(UnitValue.createPercentValue(12f)),
         }).setWidth(new UnitValue(UnitValue.PERCENT, 100));
 
         table.addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.description", locale)).setTextAlignment(TextAlignment.LEFT))
+                .addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.unit", locale)))
                 .addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.quantity", locale)))
                 .addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.price", locale)))
                 .addHeaderCell(new HeaderCell(I18nService.getText("invoice.order.line.amount", locale)));
 
         for (OrderLine line : lines) {
             table.addCell(new BorderedCell().add(new NullableParagraph(line.getDescription())));
-            table.addCell(new BorderedCell().add(new NullableParagraph(new AmountFormat(locale).format(line.getQuantity()))
-                    .setTextAlignment(TextAlignment.RIGHT)));
+            table.addCell(new BorderedCell().add(new NullableParagraph(line.getUnit()).setTextAlignment(TextAlignment.CENTER)));
+            table.addCell(new BorderedCell().add(new NullableParagraph(new AmountFormat(locale).format(line.getQuantity())).setTextAlignment(TextAlignment.RIGHT)));
             table.addCell(new AmountCell(line.getUnitPrice(), locale, currency));
             table.addCell(new AmountCell(line.getAmount(), locale, currency));
         }
