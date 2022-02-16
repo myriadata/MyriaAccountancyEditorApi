@@ -52,7 +52,7 @@ public class InvoiceFooter extends Paragraph {
         if (Objects.nonNull(provider.getShareCapital())) {
             add(new Text(String.format("%s : %s",
                     I18nService.getText("invoice.footer.capital", locale),
-                    new AmountFormat(locale, currency).format(provider.getShareCapital()))));
+                    new AmountFormat(locale, provider.getShareCapital().getCurrency()).format(provider.getShareCapital().getAmount()))));
             firstElement = false;
         }
 
